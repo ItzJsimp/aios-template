@@ -1,0 +1,30 @@
+{
+  "showUnsupportedFiles": true,
+  "promptDelete": false,
+  "userIgnoreFilters": [
+    "archive/",
+    "raw/notion-export/",
+    "_SCRATCH/",
+    "graphify-out/",
+    ".claude/worktrees/",
+    "raw/graph-imports/"
+  ],
+  "newLinkFormat": "relative",
+  "useMarkdownLinks": false,
+  "uriCallbacks": false,
+  "showInlineTitle": true,
+  "readableLineLength": false,
+  "strictLineBreaks": false,
+  "foldHeading": true,
+  "foldIndent": true,
+  "showLineNumber": false,
+  "showIndentGuide": true,
+  "rightToLeft": false,
+  "autoPairBrackets": true,
+  "autoPairMarkdown": true,
+  "smartIndentList": true,
+  "useTab": true,
+  "autoConvertHtml": true,
+  "focusNewTab": true,
+  "alwaysUpdateLinks": true
+}

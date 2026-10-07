@@ -1,0 +1,13 @@
+# Generated or machine-local
+.claude/skills/
+.claude/settings.local.json
+onboarding-answers.json
+_backups/
+__pycache__/
+*.pyc
+.venv/
+.obsidian/workspace*.json
+.obsidian/cache
+
+# Optional add-on with its own git repo (cloned during onboarding)
+projects/aios-scribe/

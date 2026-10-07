@@ -1,0 +1,5 @@
+/* Custom Line Length for Obsidian */
+body {
+  --file-line-width: 1100px;
+  --line-width: 1100px;
+}

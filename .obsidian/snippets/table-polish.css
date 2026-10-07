@@ -1,0 +1,28 @@
+/* Table Polish & Sticky Headers */
+.markdown-rendered table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--background-modifier-border);
+}
+.markdown-rendered th {
+  background-color: var(--background-secondary);
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  border-bottom: 2px solid var(--background-modifier-border);
+  padding: 10px 14px;
+}
+.markdown-rendered td {
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+.markdown-rendered tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+.markdown-rendered tr:hover {
+  background-color: rgba(138, 70, 205, 0.08);
+}

@@ -1,0 +1,10 @@
+/* Modern Callout Styling */
+.callout {
+  border-radius: 8px;
+  border-left-width: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  margin: 1.2em 0;
+}
+.callout-title {
+  font-weight: 600;
+}

@@ -1,0 +1,1 @@
+{ "name": "quick-replies", "version": "0.2.0", "description": "Pops the engine's own ask-user card with the options from the last answer (lettered options or a Quick Replies line); a pick sends the bare text." }

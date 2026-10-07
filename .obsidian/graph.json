@@ -1,0 +1,156 @@
+{
+  "collapse-filter": false,
+  "search": "-path:archive -path:logs -path:raw -path:handoff-docs",
+  "showTags": false,
+  "showAttachments": false,
+  "hideUnresolved": true,
+  "showOrphans": false,
+  "collapse-color-groups": false,
+  "colorGroups": [
+    {
+      "query": "file:AGENTS.md OR file:MASTER-INSTRUCTIONS.md OR file:CLAUDE.md OR file:CONTEXT.md OR file:BUILD-PLAN.md OR file:TASKS.md",
+      "color": {
+        "a": 1,
+        "rgb": 16719424
+      }
+    },
+    {
+      "query": "path:modes",
+      "color": {
+        "a": 1,
+        "rgb": 16733986
+      }
+    },
+    {
+      "query": "path:memory",
+      "color": {
+        "a": 1,
+        "rgb": 16764928
+      }
+    },
+    {
+      "query": "path:domains",
+      "color": {
+        "a": 1,
+        "rgb": 16757504
+      }
+    },
+    {
+      "query": "path:tasks",
+      "color": {
+        "a": 1,
+        "rgb": 58998
+      }
+    },
+    {
+      "query": "path:capture",
+      "color": {
+        "a": 1,
+        "rgb": 7798531
+      }
+    },
+    {
+      "query": "path:decisions",
+      "color": {
+        "a": 1,
+        "rgb": 45311
+      }
+    },
+    {
+      "query": "path:standards",
+      "color": {
+        "a": 1,
+        "rgb": 2718207
+      }
+    },
+    {
+      "query": "path:projects",
+      "color": {
+        "a": 1,
+        "rgb": 6627327
+      }
+    },
+    {
+      "query": "path:.agents/skills",
+      "color": {
+        "a": 1,
+        "rgb": 13959417
+      }
+    },
+    {
+      "query": "path:tools",
+      "color": {
+        "a": 1,
+        "rgb": 11141375
+      }
+    },
+    {
+      "query": "path:wiki",
+      "color": {
+        "a": 1,
+        "rgb": 58879
+      }
+    },
+    {
+      "query": "path:prompts",
+      "color": {
+        "a": 1,
+        "rgb": 16748800
+      }
+    },
+    {
+      "query": "path:raw/youtube",
+      "color": {
+        "a": 1,
+        "rgb": 15022389
+      }
+    },
+    {
+      "query": "path:raw/articles",
+      "color": {
+        "a": 1,
+        "rgb": 9268835
+      }
+    },
+    {
+      "query": "path:handoff-docs",
+      "color": {
+        "a": 1,
+        "rgb": 7901340
+      }
+    },
+    {
+      "query": "path:logs",
+      "color": {
+        "a": 1,
+        "rgb": 7901340
+      }
+    },
+    {
+      "query": "path:templates",
+      "color": {
+        "a": 1,
+        "rgb": 2533018
+      }
+    },
+    {
+      "query": "path:archive",
+      "color": {
+        "a": 1,
+        "rgb": 5533306
+      }
+    }
+  ],
+  "collapse-display": false,
+  "showArrow": true,
+  "textFadeMultiplier": 0,
+  "nodeSizeMultiplier": 1.26879878164858,
+  "lineSizeMultiplier": 0.671806586712355,
+  "collapse-forces": false,
+  "centerStrength": 0.5,
+  "repelStrength": 10,
+  "linkStrength": 1,
+  "linkDistance": 79,
+  "scale": 0.1378282417952335,
+  "close": false
+}

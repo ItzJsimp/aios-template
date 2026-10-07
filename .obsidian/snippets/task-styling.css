@@ -1,0 +1,12 @@
+/* Enhanced Task Checklists */
+.markdown-rendered .task-list-item.is-checked {
+  opacity: 0.55;
+  text-decoration: line-through;
+}
+.markdown-rendered input[type="checkbox"]:checked {
+  accent-color: var(--interactive-accent);
+}
+.markdown-rendered .task-list-item {
+  transition: opacity 0.2s ease;
+  line-height: 1.6;
+}

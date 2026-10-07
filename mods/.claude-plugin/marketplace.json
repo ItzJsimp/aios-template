@@ -1,0 +1,23 @@
+{
+  "name": "aios-mods",
+  "owner": {
+    "name": "{{AIOS_NAME}}"
+  },
+  "plugins": [
+    {
+      "name": "cache-clock",
+      "source": "./cache-clock",
+      "description": "Cache countdown band with hit % and 300K handoff toast"
+    },
+    {
+      "name": "quick-replies",
+      "source": "./quick-replies",
+      "description": "Clickable reply buttons"
+    },
+    {
+      "name": "limit-watch",
+      "source": "./limit-watch",
+      "description": "Subscription quota countdown (KilimcininKorOglu, MIT)"
+    }
+  ]
+}

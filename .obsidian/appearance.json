@@ -1,0 +1,18 @@
+{
+  "theme": "obsidian",
+  "showViewHeader": true,
+  "showRibbon": true,
+  "nativeMenus": false,
+  "baseFontSizeAction": true,
+  "cssTheme": "",
+  "accentColor": "#8a46cd",
+  "monospaceFontFamily": "",
+  "enabledCssSnippets": [
+    "custom-width",
+    "sidebar-focus",
+    "callout-glow",
+    "table-polish",
+    "tag-pills",
+    "task-styling"
+  ]
+}

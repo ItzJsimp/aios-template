@@ -1,0 +1,18 @@
+/* Sidebar Focus: Dim noise and highlight core governance */
+.nav-folder-title[data-path="archive"],
+.nav-folder-title[data-path="raw/notion-export"],
+.nav-folder-title[data-path="graphify-out"] {
+  opacity: 0.45;
+}
+.nav-folder-title[data-path="archive"]:hover,
+.nav-folder-title[data-path="raw/notion-export"]:hover,
+.nav-folder-title[data-path="graphify-out"]:hover {
+  opacity: 1;
+}
+.nav-folder-title[data-path="modes"],
+.nav-folder-title[data-path="tasks"],
+.nav-folder-title[data-path="memory"],
+.nav-folder-title[data-path=".agents/skills"],
+.nav-folder-title[data-path="decisions"] {
+  font-weight: 600;
+}
