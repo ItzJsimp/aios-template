@@ -18,7 +18,7 @@ disable-model-invocation: true
 
 # Context Budget
 
-Analyze token overhead across every loaded component in an agent workspace (Claude Code, Google Antigravity, or Codex) and surface actionable optimizations to reclaim context space.
+Analyze token overhead across every loaded component in an agent workspace (Leonidas Code and its provider runtimes) and surface actionable optimizations to reclaim context space.
 
 ## When to Use
 
@@ -40,7 +40,7 @@ Scan workspace components and calculate token footprints:
 - **MCP Server Tools**: `~500 tokens per tool schema`
 
 **1. Always-Loaded Routers & Canon**
-- Inspect: [`AGENTS.md`](../../../AGENTS.md), [`CLAUDE.md`](../../../CLAUDE.md), [`.claude/claude-overlay.md`](../../../.claude/claude-overlay.md), [`.agents/antigravity-overlay.md`](../../rules/antigravity-overlay.md), [`MASTER-INSTRUCTIONS.md`](../../../MASTER-INSTRUCTIONS.md), [`BUILD-PLAN.md`](../../../BUILD-PLAN.md)
+- Inspect: [`AGENTS.md`](../../../AGENTS.md), [`CLAUDE.md`](../../../CLAUDE.md), [shared operating layer](../../rules/aios-code-overlay.md), [`.agents/antigravity-overlay.md`](../../rules/antigravity-overlay.md), [`MASTER-INSTRUCTIONS.md`](../../../MASTER-INSTRUCTIONS.md), [`BUILD-PLAN.md`](../../../BUILD-PLAN.md)
 - Thresholds: Flag if combined always-loaded base exceeds **15,000 words (~20,000 tokens)**. Superseded 2026-09-16 per {{OPERATOR_NAME}}'s decision (see `memory/observed/patterns.md`, "Knowledge-Rich Always-Loaded Budget"): the former 6,000-word ceiling starved always-loaded knowledge; the new target balances knowledge density against context cost, reached by pruning stale pointer entries, not by stripping knowledge.
 
 **2. Modes & Personas (`modes/*.md` or `agents/*.md`)**

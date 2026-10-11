@@ -31,6 +31,7 @@ function Set-MigratedFile([string]$RelativePath, [string]$Content) {
         if ($null -ne $old) {
             $save = Join-Path $backup $RelativePath
             New-Item -ItemType Directory -Path (Split-Path -Parent $save) -Force | Out-Null
+            [IO.File]::WriteAllText((Join-Path $target '.aios-backups/.gitignore'), "*`n")
             Copy-Item -LiteralPath $path -Destination $save
         }
         New-Item -ItemType Directory -Path (Split-Path -Parent $path) -Force | Out-Null

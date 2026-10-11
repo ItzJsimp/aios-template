@@ -28,7 +28,7 @@ metadata:
 - Line 1: `**Active Mode:** Mode XX: [Name]`.
 - Line 2: `🎯 **Focus:** \`<Project/Area>\` · **Milestone:** \`<Active Phase/Step>\``.
 - Line 3: Blank line, followed immediately by code, diffs, tables, or technical findings. Zero pleasantries.
-- Suppress chat title badge in Antigravity (handled natively on disk). In Claude Code CLI, emit `🏷️ **Chat Title:** ...` only on Turn 1 or scope shifts.
+- Leonidas Code owns thread titles and provider/account indicators. Keep chat text focused on the result; report model, usage or cache figures only when supplied by live telemetry.
 - Banish "Context & Destination" preambles from routine responses; reserve deep design trees strictly for `/grill-me` or `/plan`.
 
 **Structural Syntax & Scanability Standard.**
