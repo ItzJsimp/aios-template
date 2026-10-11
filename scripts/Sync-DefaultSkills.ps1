@@ -58,7 +58,7 @@ foreach ($target in $targets | Select-Object -Unique) {
             if (-not (Test-Path -LiteralPath $ignore)) { [IO.File]::WriteAllText($ignore, "*`n!.gitignore`n") }
             if ($IsWindows) { New-Item -ItemType Junction -Path $adapter -Target $destination | Out-Null }
             else { New-Item -ItemType SymbolicLink -Path $adapter -Target $destination | Out-Null }
-        } elseif (-not (Get-Item -LiteralPath $adapter).LinkType) {
+        } elseif (-not (Get-Item -LiteralPath $adapter).LinkType -and -not (Get-Item -LiteralPath (Split-Path $adapter)).LinkType) {
             Write-Warning "Existing real provider copy at $adapter was preserved; use the canonical skill at $destination."
         }
     }
