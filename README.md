@@ -22,6 +22,7 @@ AI interviews you and rebuilds this template around you: its name, where it live
 - **Response format:** every substantive answer opens with the active Mode and focus, and ends with a
   dock: `TL;DR`, `Immediate Next Actions` (yours and the AI's), and `Input & Decisions Needed` with
   lettered options and a recommendation. Defined in `memory/soul.md`.
+- **Next action:** say "what should I work on?" or `/next-action`. The built-in skill remembers your task folder, matches work to your energy and time, and picks for you if you say "skip". It is included in new projects.
 - **Modes:** architect, assistant, health, finance, productivity, decisions, research, Windows, app
   builder. `modes/router.md` picks one per prompt.
 - **Rules:** `AGENTS.md` (commit everything, capture tasks and preferences immediately, batch edits,
@@ -41,3 +42,5 @@ Review changes before merging them into your personalized AIOS. Existing users c
 
 Onboarding renames this repo's remote to `template`. Pull new skills and rules any time with
 `git pull template main`.
+
+After pulling updates, run `pwsh -File scripts/Sync-DefaultSkills.ps1` to update the default next action skill in existing projects. Changed skill files are backed up; tasks and project instructions are preserved. The folder helper uses Python 3 when available, with a filesystem fallback described in the skill.

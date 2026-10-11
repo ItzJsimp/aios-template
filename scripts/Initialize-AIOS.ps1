@@ -46,6 +46,8 @@ Get-ChildItem -LiteralPath $Target -Recurse -File | Where-Object { $_.Extension 
 }
 Write-Host "[OK] Filled placeholders in $changed files at $Target" -ForegroundColor Green
 
+& (Join-Path $Target "scripts/Sync-DefaultSkills.ps1") -RepoPath $Target -SourceRoot $Target
+
 $sync = Join-Path $Target "scripts\Sync-AgentSkills.ps1"
 if (Test-Path -LiteralPath $sync) { pwsh -NoProfile -File $sync -RepoRoot $Target }
 

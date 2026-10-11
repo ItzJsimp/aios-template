@@ -70,6 +70,8 @@ Set-MigratedFile 'CLAUDE.md' $claude
 if (Test-Path -LiteralPath (Join-Path $target '.claude/claude-overlay.md')) {
     Set-MigratedFile '.claude/claude-overlay.md' "# Claude provider compatibility`n`nUse the [shared operating layer](../$overlayRel) in Leonidas Code.`n"
 }
+& (Join-Path $source "scripts/Sync-DefaultSkills.ps1") -RepoPath $target -SourceRoot $source -WhatIf:$WhatIfPreference
+
 Write-Host "Updated $writes instruction files. Personal memory and project files were not modified."
 if ($writes) { Write-Host "Backups: $backup" }
 Write-Host 'Open this AIOS in Leonidas Code and verify its identity in a fresh session for each connected provider.'

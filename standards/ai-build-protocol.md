@@ -47,12 +47,11 @@ out (a reaper, a queue decision, a nightly drain). A writer with no close step b
 looks active forever; the 2026-10-02 backlog audit found 81 continuation capsules and a 105-item
 review queue that way. ({{AIOS_NAME}}; {{OPERATOR_NAME}}, 2026-10-02.)
 
-## 1c. Opus plans, Sonnet builds
+## 1c. Frontier plans and reviews, workhorse swarm builds (Tiered Orchestration)
 
-Planning chats (Opus) end with a self-contained build brief: files, exact changes, out of scope,
-done-when checks, verify commands. The build runs in a separate Sonnet chat or the `executor`
-subagent, which should never have to re-decide design. A brief that leaves a design choice open
-is the planner's bug.
+Governed by [standards/tiered-orchestration-standard.md](./tiered-orchestration-standard.md) and [skill-tiered-orchestration](../.agents/skills/tiered-orchestration/SKILL.md).
+Planning chats (Opus 5.5 / GPT-6.1-Sol) end with a self-contained build brief: files, exact changes, out of scope, done-when checks, verify commands. The build is delegated to high-speed, cost-effective workhorse subagents (Claude Haiku 5.5, Gemini 3.8 Flash, GPT-5.6 Luna) via delegate_task or invoke_subagent.
+When child tasks complete, the Frontier Orchestrator enforces the mandatory 5-point Review Gate (diff audit, typecheck verification, edge-case probing, regression check, senior polish) before delivering the unified result.
 
 ## 2. Plan or just build
 
