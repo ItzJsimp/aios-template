@@ -3,6 +3,7 @@ name: "task-management"
 description: "Capture any action as a gated, lane-routed task in tasks/; query, audit, archive, and rebuild the task substrate."
 category: flow
 scope: "structural"
+distribution: template
 disable-model-invocation: true
 ---
 # Task Management: Capture, Route, Keep Clean
@@ -72,7 +73,7 @@ Then re-run the sweep until it reports `CLEAN` or every item left is waiting on 
 | Send-back rate per lane (demotes types above 10%) | `pwsh -NoProfile -File scripts/Test-TaskGate.ps1 -Report` |
 | Archive Done tasks older than 14 days | `pwsh -NoProfile -File scripts/Archive-CompletedTasks.ps1 -DaysOld 14 -Live` |
 | Rebuild `tasks-index.md` and `TASKS.md` | `pwsh -NoProfile -File scripts/Build-TasksIndex.ps1` |
-| Review gate results the script could not decide | [`tasks/_staged/review-queue.md`](../../../tasks/_staged/review-queue.md) |
+| Review gate results the script could not decide | `tasks/_staged/review-queue.md` |
 
 Remediation: broken `project:`/`blocked_by` path, fix the relative path; circular block, cut the downstream edge; aging capture, triage with `Capture-Thought.ps1 -TriageToTask`.
 

@@ -3,6 +3,7 @@ name: llm-wiki-research
 description: "Execute structured multi-lens research investigations (Balanced, Academic, Current Reality, or Combined Pass), format findings into staged reports with grounded citations, and hand off to the Orchestrator for QA review."
 category: research
 scope: structural
+distribution: core
 type: skill
 id: skill-llm-wiki-research
 title: "LLM Wiki Research"

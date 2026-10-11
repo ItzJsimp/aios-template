@@ -3,6 +3,7 @@ name: technical-writing
 description: "Draft and revise reader-first technical docs, procedures, and UI copy for maximum clarity and fidelity."
 category: knowledge
 scope: structural
+distribution: core
 type: skill
 id: skill-technical-writing
 title: NBJ Write Clearly

@@ -3,6 +3,7 @@ name: find-skills
 description: "Discover, evaluate, score, and install external agent skills from skills.sh or GitHub into AIOS."
 category: agents
 scope: structural
+distribution: core
 type: skill
 id: skill-find-skills
 title: "Find Skills : Agent Skill Discovery & Installation"

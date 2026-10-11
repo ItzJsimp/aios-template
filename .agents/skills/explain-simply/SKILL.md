@@ -3,6 +3,7 @@ name: explain-simply
 description: "Re-pitch previous explanations in plain, jargon-free English with missing mental models restored."
 category: research
 scope: personal
+distribution: core
 disable-model-invocation: true
 type: skill
 id: skill-explain-simply

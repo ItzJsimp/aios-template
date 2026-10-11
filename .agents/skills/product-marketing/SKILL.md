@@ -3,6 +3,7 @@ name: "product-marketing"
 description: "Define Ideal Customer Profiles (ICP), product positioning frameworks, messaging hierarchies, and competitive differentiation matrices."
 category: "money"
 scope: "structural"
+distribution: core
 type: "skill"
 id: "skill-product-marketing"
 title: "Product Marketing"

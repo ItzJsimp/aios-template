@@ -4,6 +4,7 @@ description: "Scan Obsidian wiki for concept identity collisions and merge dupli
 disable-model-invocation: true
 category: knowledge
 scope: structural
+distribution: core
 type: skill
 id: skill-wiki-dedup
 title: "Wiki Dedup"

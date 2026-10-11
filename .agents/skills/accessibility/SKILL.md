@@ -3,6 +3,7 @@ name: accessibility
 description: "Audit and implement web accessibility standards, WCAG 2.2 AA compliance, keyboard navigation, and screen reader compatibility."
 category: design
 scope: structural
+distribution: core
 disable-model-invocation: true
 ---
 

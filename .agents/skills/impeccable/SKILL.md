@@ -3,6 +3,7 @@ name: impeccable
 description: "Design, critique, audit, and polish frontend interfaces, UI systems, micro-interactions, and visual layouts."
 category: design
 scope: structural
+distribution: core
 type: skill
 id: skill-impeccable
 title: "Impeccable"

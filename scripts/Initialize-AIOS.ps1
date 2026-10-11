@@ -49,6 +49,16 @@ Write-Host "[OK] Filled placeholders in $changed files at $Target" -ForegroundCo
 $sync = Join-Path $Target "scripts\Sync-AgentSkills.ps1"
 if (Test-Path -LiteralPath $sync) { pwsh -NoProfile -File $sync -RepoRoot $Target }
 
+# Weekly operator scorecard + frontier watch: every user gets it automatically (silent, Sunday 9 PM).
+try {
+    $review = Join-Path $Target "scripts\Run-WeeklyOperatorReview.ps1"
+    $reg = Join-Path $Target "scripts\New-AiosScheduledTask.ps1"
+    if ((Test-Path -LiteralPath $review) -and (Test-Path -LiteralPath $reg)) {
+        pwsh -NoProfile -File $reg -TaskName "AIOS-Weekly-OperatorReview" -ScriptPath $review -ScriptArguments "-NoJudge" -TriggerType Weekly -DaysOfWeek Sunday -At "9:00PM"
+        Write-Host "[OK] Weekly operator scorecard scheduled (Sundays 9 PM)." -ForegroundColor Green
+    }
+} catch { Write-Warning "Could not schedule the weekly scorecard ($($_.Exception.Message)); run scripts\Run-WeeklyOperatorReview.ps1 weekly by hand." }
+
 # Cloned straight from the template repo: keep its history, but pushes must never go back to it.
 if ((Test-Path -LiteralPath (Join-Path $Target ".git")) -and (git -C $Target remote get-url origin 2>$null) -like 'https://github.com/ItzJsimp/aios-template*') {
     git -C $Target remote rename origin template

@@ -11,10 +11,13 @@ point at canon instead of restating it.
 onboarding has not happened. Run the [`aios-onboarding`](./.agents/skills/aios-onboarding/SKILL.md)
 skill before anything else.
 
-## Engine overlays
+## Leonidas Code and provider adapters
 
-This file is the universal base. **Claude Code** reads [`CLAUDE.md`](./CLAUDE.md), which `@`-imports this
-file plus the resident canon. Other engines (Gemini, Codex, local models) read this file natively.
+Open this AIOS in Leonidas Code. Before acting, read the [shared operating layer](./.agents/rules/aios-code-overlay.md),
+[operator](./memory/operator.md), [soul](./memory/soul.md), [core](./memory/core.md)
+and [mode router](./modes/router.md). Every provider follows this same canon.
+[CLAUDE.md](./CLAUDE.md) remains a Claude SDK import adapter, not a separate workspace.
+Provider/account availability comes from the running app, not this template.
 
 ---
 
@@ -23,7 +26,7 @@ file plus the resident canon. Other engines (Gemini, Codex, local models) read t
 2. Log every durable action as a Git commit, made as part of doing the work, never batched at session end. Commit shape: fixed prefix (Decision:, Delete:, Fix:, Build:, Canon:, Audit:, Task:, Chore:, Docs:, Refactor:, Test:), then what changed (verifiable numbers, names, paths), then why.
 3. **Batch repetitive file operations (>3 files):** write and run one Python or PowerShell script instead of N single-file edits.
 4. **Zero Em-Dash Policy:** never write the em dash character (U+2014). Use colons, commas, parentheses, hyphens, or split the sentence. Procedure: [`.agents/skills/de-emdash/SKILL.md`](./.agents/skills/de-emdash/SKILL.md).
-5. **Canonical Skills Standard:** every skill lives once at `.agents/skills/<skill-name>/SKILL.md`. Claude Code reads `.claude/skills/`, a generated junction set: regenerate with [`scripts/Sync-AgentSkills.ps1`](./scripts/Sync-AgentSkills.ps1), never hand-edit.
+5. **Canonical Skills Standard:** every skill lives once at `.agents/skills/<skill-name>/SKILL.md`. The Claude provider reads `.claude/skills/`, a generated junction set: regenerate with [`scripts/Sync-AgentSkills.ps1`](./scripts/Sync-AgentSkills.ps1), never hand-edit.
 6. **Planning artifacts on purpose, not by default.** For complex multi-step work, plan first (task card in `tasks/`), review, then execute in one batch. Routine edits execute directly.
 7. **Relative file links:** format every repo path in markdown as a repo-relative clickable link. YAML frontmatter never contains markdown links.
 8. **Token density:** no preambles, no filler, no speculative abstraction. Smallest edit, densest phrasing that keeps full precision.
@@ -72,6 +75,6 @@ Never load everything. Never guess when two sources disagree: say they disagree 
 `archive/` retired content · `assets/` media · `audits/` health checks · `capture/` fast thought capture ·
 `decisions/` ADRs · `domains/` life areas (finances, health, career) · `handoff-docs/` session handoffs ·
 `ideal-state/` goals and direction · `logs/` raw history · `memory/` durable facts · `modes/` personas ·
-`mods/` Claude Code plugins · `projects/` workspaces · `prompts/` reusable prompts · `raw/` source dumps ·
+`mods/` optional legacy runtime plugins · `projects/` workspaces · `prompts/` reusable prompts · `raw/` source dumps ·
 `scripts/` automation · `standards/` how things are built · `tasks/` the task write path ·
 `templates/` reusable templates · `wiki/` synthesized knowledge.

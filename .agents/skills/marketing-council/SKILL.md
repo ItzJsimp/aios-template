@@ -3,6 +3,7 @@ name: "marketing-council"
 description: "Simulate a marketing advisory board (Godin, Ogilvy, Schwartz, Hormozi, Dunford) to review offers, debate strategies, and guide direction."
 category: "money"
 scope: "structural"
+distribution: core
 type: "skill"
 id: "skill-marketing-council"
 title: "Marketing Council"

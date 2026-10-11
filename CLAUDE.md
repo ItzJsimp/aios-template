@@ -1,3 +1,4 @@
+@.agents/rules/aios-code-overlay.md
 @AGENTS.md
 @memory/operator.md
 @memory/soul.md

@@ -3,6 +3,7 @@ name: wiki-context-pack
 description: "Produce token-bounded, citation-ready markdown context slices from the Obsidian vault for agents."
 category: knowledge
 scope: structural
+distribution: core
 type: skill
 id: skill-wiki-context-pack
 title: "Wiki Context Pack"

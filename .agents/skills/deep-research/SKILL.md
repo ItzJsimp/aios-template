@@ -3,6 +3,7 @@ name: deep-research
 description: "Execute 100% free, zero-cost deep academic and web research workflows combining open scholarly APIs (arXiv, Crossref, Semantic Scholar) with local markdown extraction, structured source ledgers, and multi-agent synthesis."
 category: research
 scope: structural
+distribution: core
 type: skill
 id: skill-deep-research
 title: "Zero-Cost Deep Research Workflow"

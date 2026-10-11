@@ -3,6 +3,7 @@ name: "ad-creative"
 description: "Generate, test, and iterate paid ad creative variations, visual hooks, copy angles, and multi-format headlines for Meta, Google, and LinkedIn."
 category: "money"
 scope: "structural"
+distribution: core
 type: "skill"
 id: "skill-ad-creative"
 title: "Ad Creative"

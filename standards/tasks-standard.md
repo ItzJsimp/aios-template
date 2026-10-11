@@ -149,7 +149,7 @@ Per [ADR-0065](../decisions/0065-task-lifecycle-consolidation-and-delegation-gat
 | **G4 Digital & reachable** | Every input is on disk or behind a connected tool; no physical or human-only action | `operator` |
 | **G5 Right-sized** | Effort Low/Medium, one subsystem, at most 5 files | `aios` instead of `hermes` |
 
-Resolution order: G4, then G3, then G1/G2, then G5. All pass and small/mechanical: `hermes`; all pass otherwise: `aios`. `autonomous: true` is derived: lane `hermes`/`aios`, no `blocked_by`, and `scope: structural` (personal tasks still need explicit opt-in per ADR-0048). Results the heuristics cannot decide go to [`tasks/_staged/review-queue.md`](../tasks/_staged/review-queue.md), never silently applied.
+Resolution order: G4, then G3, then G1/G2, then G5. All pass and small/mechanical: `hermes`; all pass otherwise: `aios`. `autonomous: true` is derived: lane `hermes`/`aios`, no `blocked_by`, and `scope: structural` (personal tasks still need explicit opt-in per ADR-0048). Results the heuristics cannot decide go to `tasks/_staged/review-queue.md`, never silently applied.
 
 **Grill protocol.** Lane `grill` triggers a `/grill-me` capped at 3 questions, each aimed only at the failing gate. Answers are written into `## Done when`, the gate re-runs, and the task continues in its new lane.
 

@@ -13,7 +13,7 @@ generated: false
 
 # {{Title}}
 
-> **Source:** [{{URL}}]({{URL}}) · **Creator:** [{{Creator Name}}](../../creators/{{creator-slug}}.md) · **Date:** {{Date}} · **Transcript:** `transcript.txt`
+> **Source:** `{{URL}}` · **Creator:** `{{Creator Name}}` (`creators/{{creator-slug}}.md`) · **Date:** {{Date}} · **Transcript:** `transcript.txt`
 
 ```
 Signal Score: {{Signal %}} fluff pruned · {{Duration}} ({{Raw Words}} words) condensed into {{Summary Words}} high-density words ({{Multiplier}}x compression) · 0 image tokens burned
@@ -56,9 +56,9 @@ Copy-pasteable code blocks, system prompts, or terminal commands extracted direc
 ```
 
 ## 🔗 Extracted Description Links & Resources
-- **GitHub Repository:** [URL](URL) - Description of repo.
-- **Referenced Tools / APIs:** [URL](URL) - Description.
-- **Articles / Documentation:** [URL](URL) - Description.
+- **GitHub Repository:** `URL` - Description of repo.
+- **Referenced Tools / APIs:** `URL` - Description.
+- **Articles / Documentation:** `URL` - Description.
 
 ## 💼 {{BUSINESS_NAME}} Commercial Application
 How this video's demonstrated framework or technology can be packaged as a client offering, agency automation, or high-margin deliverable for {{BUSINESS_NAME}}:

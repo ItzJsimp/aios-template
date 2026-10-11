@@ -4,6 +4,7 @@ description: "Mindless work kickoff: 3-dial triage, lane-grouped picks, then exe
 disable-model-invocation: true
 category: flow
 scope: "structural"
+distribution: template
 ---
 
 # Next Action: Pick, Execute, Verify, Close

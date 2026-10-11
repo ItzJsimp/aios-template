@@ -164,7 +164,8 @@ function Initialize-AllFiles {
     $commonExclude = [regex]::new('\\(\.git|\.obsidian|\.claude|\.gemini)\\', 'IgnoreCase')
     $list = [System.Collections.Generic.List[System.IO.FileInfo]]::new()
     foreach ($f in Get-ChildItem -LiteralPath $RepoRoot -Recurse -File) {
-        if (-not $commonExclude.IsMatch($f.FullName)) { $list.Add($f) }
+        # Symlinks are generated views (projects/<slug>/tasks/, ADR-0073): the real file is already in the list.
+        if (-not $commonExclude.IsMatch($f.FullName) -and -not $f.LinkType) { $list.Add($f) }
     }
     $script:AllFiles = $list
 }
@@ -178,7 +179,7 @@ if (Test-GateEnabled -GateNumber 1 -GateName "Routing") {
 # 1. Routing Integrity Check
 Start-Gate "[1/12] Checking Routing Integrity..."
 
-$routerFiles = @("AGENTS.md", "CLAUDE.md", "MASTER-INSTRUCTIONS.md", ".claude/claude-overlay.md", ".agents/rules/antigravity-overlay.md", "modes/router.md", "memory/operator.md", "memory/soul.md", "memory/core.md")
+$routerFiles = @("AGENTS.md", "CLAUDE.md", "MASTER-INSTRUCTIONS.md", ".agents/rules/aios-code-overlay.md", ".claude/claude-overlay.md", ".agents/rules/antigravity-overlay.md", "modes/router.md", "memory/operator.md", "memory/soul.md", "memory/core.md")
 
 foreach ($rf in $routerFiles) {
     $full = Join-Path -Path $RepoRoot -ChildPath $rf
@@ -598,7 +599,7 @@ if (Test-Path -LiteralPath $geminiFile) {
     }
 }
 
-$namingExcludeRx = [regex]::new('\\(\.git|\.obsidian|\.claude|\.gemini|\.graphify|_dist|archive|raw|logs|node_modules|__pycache__|\.venv|venv|clone-venv|\.venv-laya)\\', 'IgnoreCase')
+$namingExcludeRx = [regex]::new('\\(\.git|\.obsidian|\.claude|\.gemini|\.graphify|_dist|archive|raw|logs|node_modules|__pycache__|\.venv|venv|clone-venv|\.venv-laya|universal-template)\\', 'IgnoreCase')  # universal-template ships AGENTS.md/CLAUDE.md by design
 
 foreach ($f in $script:AllFiles) {
     $name = $f.Name

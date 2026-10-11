@@ -1,19 +1,19 @@
 # AIOS Template: Your Personal AI Operating System
 
-A complete, ready-to-personalize AI operating system for Claude Code: 80+ skills, 9 modes, a trust
-contract, task and decision tooling, Claude Code mods, and an Obsidian visual graph. On first run your
+A complete, ready-to-personalize AI operating system for Leonidas Code: 80+ skills, 9 modes, a trust
+contract, task and decision tooling, shared provider instructions, and an Obsidian visual graph. On first run your
 AI interviews you and rebuilds this template around you: its name, where it lives, your goals, how you work.
 
 ## Setup (about 10 minutes)
 
 1. **Install the prerequisites** (skip any you have):
-   - [Claude Code](https://docs.claude.com/en/docs/claude-code/overview) (Claude Pro or Max plan)
+   - Leonidas Code, with at least one supported provider account connected in Settings. Keep any runtime dependency requested by its provider setup.
    - [PowerShell 7](https://aka.ms/powershell) and [Git](https://git-scm.com/download/win)
    - Optional: [Obsidian](https://obsidian.md) for the visual graph
 2. **Get the template**, either way works:
    - Click **Use this template** at the top of this page to create your own private copy, then clone it, or
    - Run `git clone https://github.com/ItzJsimp/aios-template.git "My AIOS"`
-3. **Open a terminal in that folder** and run `claude`.
+3. **Open that folder as a project in Leonidas Code** and select a connected provider.
 4. **Say:** `Onboard me.`
 5. Answer the interview. Your AI names itself, fills in your profile, sets up git, and links every skill.
 
@@ -26,7 +26,7 @@ AI interviews you and rebuilds this template around you: its name, where it live
   builder. `modes/router.md` picks one per prompt.
 - **Rules:** `AGENTS.md` (commit everything, capture tasks and preferences immediately, batch edits,
   pre-flight thinking checklist). `INTENT.md` says what the AI may do alone and what it must ask about.
-- **Mods:** cache-clock, limit-watch and quick-replies are enabled in `.claude/settings.json`.
+- **Provider adapters:** Claude instruction imports and skill discovery remain compatible. Legacy terminal UI plugins are disabled by default.
 
 ## Optional: {{AIOS_NAME}} Scribe (voice dictation)
 
@@ -36,6 +36,8 @@ folder. Manual install: `git clone https://github.com/ItzJsimp/leonidas-scribe.g
 `projects/aios-scribe/Setup.ps1`.
 
 ## Updates
+
+Review changes before merging them into your personalized AIOS. Existing users can dry-run the [harness migration](./scripts/Update-AIOSHarness.ps1), then apply it after review; personal files are preserved and modified files are backed up.
 
 Onboarding renames this repo's remote to `template`. Pull new skills and rules any time with
 `git pull template main`.

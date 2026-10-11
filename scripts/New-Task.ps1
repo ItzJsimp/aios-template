@@ -164,7 +164,9 @@ $lines = [System.Collections.Generic.List[string]]::new()
 $lines.Add('---')
 $lines.Add('type: task')
 $lines.Add("id: $id")
-$lines.Add("name: `"$Name`"")
+# YAML double-quoted scalar: escape backslashes (Windows paths) and quotes.
+function ConvertTo-YamlDq([string]$s) { '"' + ($s -replace '\\', '\\' -replace '"', '\"') + '"' }
+$lines.Add("name: $(ConvertTo-YamlDq $Name)")
 $lines.Add("status: `"$Status`"")
 $lines.Add("owner: $Owner")
 $lines.Add("accountable: `"$Accountable`"")
@@ -188,20 +190,20 @@ if ($BlockedBy -and $BlockedBy.Count -gt 0) {
     }
 }
 if ($Verify) {
-    $lines.Add("verify: `"$Verify`"")
+    $lines.Add("verify: $(ConvertTo-YamlDq $Verify)")
 } else {
     $lines.Add('verify: ""')
 }
 if ($StartFiles -and $StartFiles.Count -gt 0) {
     $lines.Add('start_files:')
     foreach ($sf in $StartFiles) {
-        $lines.Add("  - `"$sf`"")
+        $lines.Add("  - $(ConvertTo-YamlDq $sf)")
     }
 } else {
     $lines.Add('start_files: []')
 }
 if ($Taste) {
-    $lines.Add("taste: `"$Taste`"")
+    $lines.Add("taste: $(ConvertTo-YamlDq $Taste)")
 } else {
     $lines.Add('taste: ""')
 }
@@ -296,6 +298,7 @@ if ($content -match '(?s)^(---\r?\n)(.*?)(\r?\n---)') {
     Set-Content -LiteralPath $filePath -Value "$header$fmBody$footer$rest" -Encoding utf8 -NoNewline
 }
 
+if ($Project) { & (Join-Path $PSScriptRoot 'Sync-ProjectTaskViews.ps1') -RepoPath (Split-Path $tasksDir -Parent) -Project $Project | Out-Null }
 Write-Host "Created task: $filePath" -ForegroundColor Green
 Write-Host "lane: $resolvedLane$(if (-not $Lane -and @($gateWarnings).Count -gt 0) { " (" + ($gateWarnings -join '; ') + ")" })" -ForegroundColor Cyan
 Write-Host "autonomous: $autonomousFinal" -ForegroundColor Cyan

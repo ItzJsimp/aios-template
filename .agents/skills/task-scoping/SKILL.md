@@ -3,6 +3,7 @@ name: "task-scoping"
 description: "Decompose specs, briefs, and multi-part goals into gated vertical-slice tasks via New-Task.ps1."
 category: planning
 scope: "structural"
+distribution: template
 disable-model-invocation: true
 ---
 # Task Scoping: Spec to Vertical Slices

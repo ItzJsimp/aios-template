@@ -3,6 +3,7 @@ name: "pricing"
 description: "Structure pricing tiers, packaging, value metrics, freemium boundaries, and price increase strategies using willingness-to-pay frameworks."
 category: "money"
 scope: "structural"
+distribution: core
 type: "skill"
 id: "skill-pricing"
 title: "Pricing"

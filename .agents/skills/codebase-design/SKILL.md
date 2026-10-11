@@ -3,6 +3,7 @@ name: codebase-design
 description: "Shared vocabulary for designing deep modules. Use to design or improve a module's interface, find deepening opportunities, place a seam, make code more testable or AI-navigable, or when another skill needs the deep-module vocabulary."
 category: code
 scope: structural
+distribution: core
 type: skill
 id: skill-codebase-design
 title: "Codebase Design"

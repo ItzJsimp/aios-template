@@ -3,6 +3,7 @@ name: workflow-spec-builder
 description: "Interactive workflow spec builder authoring and refining lifecycle loops in workflows/*.md."
 category: planning
 scope: structural
+distribution: core
 disable-model-invocation: true
 argument-hint: "A workflow to design, or nothing to go find one"
 ---

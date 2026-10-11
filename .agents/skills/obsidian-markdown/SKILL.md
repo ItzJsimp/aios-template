@@ -3,6 +3,7 @@ name: obsidian-markdown
 description: "Write Obsidian Flavored Markdown: wikilinks, embeds, callouts, properties, tags. Use for .md files in the Obsidian vault or when wikilinks, callouts, or embeds come up."
 category: knowledge
 scope: structural
+distribution: core
 type: skill
 id: skill-obsidian-markdown
 title: "Obsidian Markdown"

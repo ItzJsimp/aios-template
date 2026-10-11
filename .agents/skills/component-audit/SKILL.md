@@ -4,6 +4,7 @@ description: "Audit, optimize, and improve any AIOS file, folder, skill, prompt,
 disable-model-invocation: true
 category: system
 scope: "structural"
+distribution: template
 ---
 
 # Component Audit, Optimization & Architecture

@@ -3,6 +3,7 @@ name: "caveman"
 category: "efficiency"
 description: "Terse output mode: answer first, eliminate ceremony, preserve all code, commands, and technical facts. Cuts output tokens by up to 65%."
 scope: "structural"
+distribution: core
 type: "skill"
 id: "skill-caveman"
 title: "Caveman"

@@ -3,6 +3,7 @@ name: context-budget
 description: "Audit context window token consumption across preloaded files, modes, skills, MCP, and system rules."
 category: efficiency
 scope: structural
+distribution: template
 type: skill
 id: skill-context-budget
 title: Context Budget

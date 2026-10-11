@@ -3,6 +3,7 @@ name: "design-build"
 description: "Design and build any new app, screen, web page, dashboard, HTML artifact or document to Apple-grade quality: design read, Build Menu, rendered contact sheet to pick from, token-true build, then a design-audit PASS."
 category: design
 scope: structural
+distribution: template
 type: skill
 id: skill-design-build
 title: "Design Build: from intent to a design that passes audit"

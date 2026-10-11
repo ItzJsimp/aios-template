@@ -3,6 +3,7 @@ name: "marketing-plan"
 category: "money"
 description: "Build full go-to-market strategies, AARRR acquisition funnels, budget allocations, and 12-month growth roadmaps for products or agencies."
 scope: "structural"
+distribution: core
 type: "skill"
 id: "skill-marketing-plan"
 title: "Marketing Plan"

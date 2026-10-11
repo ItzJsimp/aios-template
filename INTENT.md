@@ -16,7 +16,7 @@ generated: false
 > It defines what {{AIOS_NAME}} handles autonomously, what it drafts for review, and what requires explicit confirmation before execution.
 >
 > Trust compounds with context, verification, and capability.
-> Updated: 2026-10-04 | Scope: Universal across Google Antigravity, Claude Code, and Local Models.
+> Updated: 2026-10-04 | Scope: Leonidas Code and its connected provider runtimes; existing unattended workers retain their domain boundaries.
 
 ---
 

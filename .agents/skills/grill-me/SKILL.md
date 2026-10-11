@@ -4,6 +4,7 @@ description: "Interview {{OPERATOR_NAME}} on a plan, design or idea in frontier 
 disable-model-invocation: true
 category: planning
 scope: structural
+distribution: core
 ---
 
 # Grill Me

@@ -3,6 +3,7 @@ name: ui-taste
 description: "Build, redesign, or critique web and iOS interfaces with Uizze's anti-ui-slop playbooks and optional real-product references, including a final visual review."
 category: design
 scope: structural
+distribution: core
 type: skill
 id: skill-ui-taste
 title: "Ui Taste"

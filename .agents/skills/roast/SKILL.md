@@ -10,6 +10,7 @@ kind: procedure
 load: on-demand
 owner: shared
 scope: structural
+distribution: core
 verified: 2026-09-09
 related: ["skills-index", "grill-me"]
 generated: false

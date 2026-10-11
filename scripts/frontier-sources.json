@@ -1,0 +1,16 @@
+{
+  "_note": "Fixed weekly source list for frontier-watch.py. Atom/RSS only; add a source by appending a row. A dead feed is reported, never fatal.",
+  "sources": [
+    {"name": "Claude Code releases", "url": "https://github.com/anthropics/claude-code/releases.atom", "weight": 3},
+    {"name": "Claude Code best practice repo", "url": "https://github.com/shanraisshan/claude-code-best-practice/commits/main.atom", "weight": 2},
+    {"name": "MCP servers releases", "url": "https://github.com/modelcontextprotocol/servers/releases.atom", "weight": 1},
+    {"name": "Simon Willison", "url": "https://simonwillison.net/atom/everything/", "weight": 2},
+    {"name": "Latent Space", "url": "https://www.latent.space/feed", "weight": 2},
+    {"name": "Hamel Husain", "url": "https://hamel.dev/index.xml", "weight": 2},
+    {"name": "Hacker News agents", "url": "https://hnrss.org/newest?q=claude+code+OR+ai+agent&points=150", "weight": 1},
+    {"name": "r/ClaudeCode top of week", "url": "https://www.reddit.com/r/ClaudeCode/top/.rss?t=week", "weight": 1},
+    {"name": "Anthropic news (third-party feed)", "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_news.xml", "weight": 3},
+    {"name": "Anthropic engineering (third-party feed)", "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_engineering.xml", "weight": 3}
+  ],
+  "tactic_words": ["hook", "skill", "subagent", "sub-agent", "mcp", "worktree", "prompt cach", "plan mode", "context", "headless", "parallel", "agent sdk", "memory", "slash command", "eval", "claude.md", "orchestrat", "routine", "schedule"]
+}

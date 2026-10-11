@@ -4,6 +4,7 @@ description: "Execute multi-gate disciplined tasks with slow-down verification, 
 disable-model-invocation: true
 category: code
 scope: structural
+distribution: core
 type: skill
 id: skill-fable-mode
 title: "The Fable Method : Multi-Gate Engineering Discipline"

@@ -3,6 +3,7 @@ name: "cro"
 description: "Optimize marketing pages and forms for conversion: diagnose drop-offs, teardown UI friction, and prioritize A/B test experiments."
 category: "money"
 scope: "structural"
+distribution: core
 type: "skill"
 id: "skill-cro"
 title: "Cro"

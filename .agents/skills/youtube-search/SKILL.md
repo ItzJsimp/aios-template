@@ -9,6 +9,7 @@ kind: procedure
 load: on-demand
 owner: shared
 scope: structural
+distribution: template
 verified: 2026-08-30
 related: ["youtube-analyzer", "skills-index", "master-instructions", "context-budget"]
 generated: false

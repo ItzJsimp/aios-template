@@ -2,7 +2,7 @@
 type: standard
 id: standard-ai-build-protocol
 title: "AI Build Protocol: how {{AIOS_NAME}} builds apps with agents"
-description: "The working protocol for building the Command Center, Scribe and any {{AIOS_NAME}} app with Claude Code, Antigravity or Hermes, distilled from Anthropic's Claude Code best practices, Boris Cherny's workflow, spec-driven development (GitHub Spec Kit, Kiro) and Claude Design. Covers the Intent-to-Build-Menu step (agent proposes the full build, {{OPERATOR_NAME}} approves or denies per item), when to plan vs just build, when to spawn subagents and on which model, verification gates, design fidelity, context hygiene, and the error loop."
+description: "The working protocol for building the Command Center, Scribe and any {{AIOS_NAME}} app inside Leonidas Code or existing unattended workers, distilled from Anthropic's Claude Code best practices, Boris Cherny's workflow, spec-driven development (GitHub Spec Kit, Kiro) and Claude Design. Covers the Intent-to-Build-Menu step (agent proposes the full build, {{OPERATOR_NAME}} approves or denies per item), when to plan vs just build, when to spawn subagents and on which model, verification gates, design fidelity, context hygiene, and the error loop."
 kind: state
 load: on-demand
 owner: aios
@@ -84,7 +84,7 @@ The single highest-leverage habit (Anthropic, Cherny: 2 to 3x quality): give the
 ## 5. Design fidelity without coding expertise
 
 - **Show, do not describe.** A screenshot or reference product beats adjectives. Keep an inspiration board per project.
-- **Claude Design** (Anthropic Labs, research preview since 2026-04-17, included in Pro): prototype a new screen by conversation against the repo's design system, then hand its bundle to Claude Code. Use it for new tabs or big redesigns; skip it for a card inside an existing tab, where copying an existing component is faster.
+- **Claude Design** (Anthropic Labs, research preview since 2026-04-17, included in Pro): prototype a new screen by conversation against the repo's design system, then hand its bundle to Leonidas Code. Use it for new tabs or big redesigns; skip it for a card inside an existing tab, where copying an existing component is faster.
 - **One design system file** ([`design-system.md`](./design-system.md)) and the [`app-building-standard.md`](./app-building-standard.md) baseline; the agent copies an existing component before inventing one.
 - Close the loop visually: implement, screenshot, list differences against the reference, fix.
 
@@ -99,8 +99,8 @@ The single highest-leverage habit (Anthropic, Cherny: 2 to 3x quality): give the
 
 | Engine | Use for |
 |---|---|
-| Claude Code | Anything touching the repo: builds, refactors, verification, commits |
-| Antigravity | Large parallel sweeps and a second opinion in a separate context |
+| Leonidas Code | Anything touching the repo: builds, refactors, verification, commits |
+| Connected provider in Leonidas Code | Authorized parallel sweeps and second opinions as delegated child work |
 | Hermes | Chat-side and background jobs; not multi-file app builds |
 
 ## Sources

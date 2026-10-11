@@ -3,6 +3,7 @@ name: "customer-research"
 category: "money"
 description: "Synthesize customer interviews, analyze review mining data, extract Jobs-to-be-Done (JTBD), and build grounded customer personas."
 scope: "structural"
+distribution: core
 type: "skill"
 id: "skill-customer-research"
 title: "Customer Research"

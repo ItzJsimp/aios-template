@@ -3,6 +3,7 @@ name: "copywriting"
 category: "money"
 description: "Write and rewrite high-converting marketing copy for landing pages, hero sections, value propositions, and CTA buttons."
 scope: "structural"
+distribution: core
 type: "skill"
 id: "skill-copywriting"
 title: "Copywriting"

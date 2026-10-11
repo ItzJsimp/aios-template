@@ -3,6 +3,7 @@ name: "seo-audit"
 category: "money"
 description: "Audit technical search visibility, diagnose ranking drops, inspect crawl errors, optimize meta tags, and evaluate search intent."
 scope: "structural"
+distribution: core
 type: "skill"
 id: "skill-seo-audit"
 title: "Seo Audit"

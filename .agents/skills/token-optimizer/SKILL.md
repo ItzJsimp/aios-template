@@ -3,6 +3,7 @@ name: "token-optimizer"
 description: "Audit dual-harness token spend, identify context leaks, and optimize project repository file bloat."
 category: efficiency
 scope: structural
+distribution: template
 disable-model-invocation: true
 ---
 

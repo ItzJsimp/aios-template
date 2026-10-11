@@ -3,6 +3,7 @@ name: "marketing-psychology"
 description: "Apply behavioral economics and mental models (anchoring, loss aversion, social proof, scarcity) to improve marketing conversion."
 category: "money"
 scope: "structural"
+distribution: core
 type: "skill"
 id: "skill-marketing-psychology"
 title: "Marketing Psychology"

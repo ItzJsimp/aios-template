@@ -3,6 +3,7 @@ name: output-style-builder
 description: "Author, audit, and calibrate Claude Code output styles for tone, density, and formatting rules."
 category: agents
 scope: structural
+distribution: core
 disable-model-invocation: true
 ---
 

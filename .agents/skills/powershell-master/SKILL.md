@@ -3,6 +3,7 @@ name: powershell-master
 description: "Expert PowerShell 7+ automation: robust cmdlets, pipeline tuning, -LiteralPath safety, and AST parsing."
 category: pc
 scope: structural
+distribution: core
 type: skill
 id: skill-powershell-master
 title: "PowerShell Master : Scripting & Automation Expert"

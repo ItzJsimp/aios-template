@@ -3,6 +3,7 @@ name: "humanizer"
 description: "Rewrite AI-sounding text to read with authentic human voice and cadence based on Wikipedia signs of AI writing. Eliminates AI tells."
 category: "knowledge"
 scope: "structural"
+distribution: core
 type: "skill"
 id: "skill-humanizer"
 title: "Humanizer"

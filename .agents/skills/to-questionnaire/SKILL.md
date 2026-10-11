@@ -3,6 +3,7 @@ name: to-questionnaire
 description: "Convert open decisions into asynchronous, standalone Markdown questionnaires for collaborators."
 category: planning
 scope: structural
+distribution: core
 type: skill
 id: skill-to-questionnaire
 title: "To Questionnaire : Asynchronous Question & Requirements Gatherer"

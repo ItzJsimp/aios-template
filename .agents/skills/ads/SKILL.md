@@ -3,6 +3,7 @@ name: "ads"
 description: "Plan, optimize, and audit paid advertising campaigns across Google Ads, Meta, and LinkedIn with audience targeting, bidding, and ROAS guardrails."
 category: "money"
 scope: "structural"
+distribution: core
 type: "skill"
 id: "skill-ads"
 title: "Ads"

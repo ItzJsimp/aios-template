@@ -13,6 +13,7 @@ Use when the skill should be reachable both autonomously by the AI and manually 
 name: "kebab-case-name"
 description: "Front-loaded action verb describing what this skill does under 250 chars. For situation A, situation B."
 scope: structural
+distribution: core
 ---
 
 # Title of the Skill
@@ -43,6 +44,7 @@ name: "kebab-case-name"
 description: "Human-facing summary of this manual operator workflow."
 disable-model-invocation: true
 scope: structural
+distribution: core
 ---
 
 # Title of Manual Skill
@@ -70,6 +72,7 @@ Use when grouping multiple user-invoked skills under a single cognitive entry po
 name: "kebab-router-name"
 description: "Route domain tasks across specialized child skills."
 scope: structural
+distribution: core
 ---
 
 # Domain Router

@@ -3,6 +3,7 @@ name: code-skimmer
 description: "Skim code files via AST symbol outlines (<300 tokens) to target line slices instead of dumping large files into context."
 category: efficiency
 scope: structural
+distribution: core
 disable-model-invocation: true
 ---
 

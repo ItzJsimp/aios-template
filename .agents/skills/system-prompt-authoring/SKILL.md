@@ -3,6 +3,7 @@ name: system-prompt-authoring
 description: "Guide for authoring agent-facing root instructions, modes, standards, and core prompts for high precision and low tokens."
 category: agents
 scope: structural
+distribution: core
 disable-model-invocation: true
 ---
 Reference for writing any core document an agent consumes: an `AGENTS.md` / `CLAUDE.md`, a mode definition, a standard, or a doc reached by a pointer. The packaging differs; the writing does not: the same levers make each one predictable, since the agent takes the same _process_ every run rather than producing the same output.

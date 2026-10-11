@@ -3,6 +3,7 @@ name: improve-codebase-architecture
 description: "Analyze module boundaries, dependency coupling, and circular imports with visual refactoring plans."
 category: code
 scope: structural
+distribution: core
 type: skill
 id: skill-improve-codebase-architecture
 title: "Improve Codebase Architecture : Structural Refactoring Auditor"

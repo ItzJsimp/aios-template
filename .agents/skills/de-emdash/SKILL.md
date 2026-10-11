@@ -3,6 +3,7 @@ name: de-emdash
 description: "Scan documents and rewrite U+2014 em dashes into clean, fluent punctuation per ADR-0012 standards."
 category: knowledge
 scope: structural
+distribution: core
 type: skill
 id: skill-de-emdash
 title: "De-Emdash : Natural Punctuation & Sentence Flow Rewriter"

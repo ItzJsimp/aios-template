@@ -78,5 +78,5 @@ Scribe's Settings > Models. Spoken captures land in `capture/`.
 ## 6. Hand off
 
 If `REPO_PATH` differs from the current folder, tell the operator exactly:
-"Close this window, open a terminal in `<REPO_PATH>`, run `claude`, and say hi." Then they are live.
+"Open `<REPO_PATH>` as a project in Leonidas Code, select a connected provider, and say hi." Then they are live.
 Recommend installing Obsidian and opening `REPO_PATH` as a vault for the visual graph.

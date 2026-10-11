@@ -3,6 +3,7 @@ name: domain-modeling
 description: "Refine codebase domain models, synchronize terminology into CONTEXT.md, and record architectural ADRs."
 category: code
 scope: structural
+distribution: core
 disable-model-invocation: true
 ---
 

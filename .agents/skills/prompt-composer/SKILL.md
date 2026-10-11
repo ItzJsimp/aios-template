@@ -3,6 +3,7 @@ name: "prompt-composer"
 description: "Compose, audit, and grade production-ready prompts and instructions for AI agents with model-calibrated scaffolding, precision levers, and persistence gating."
 category: agents
 scope: "structural"
+distribution: template
 type: "skill"
 id: "skill-prompt-composer"
 title: "Prompt Composer"
@@ -16,7 +17,7 @@ generated: false
 
 # Prompt Composer: Agent Instruction & Prompt Authoring Engine
 
-Compose, audit, optimize, and grade high-precision prompts for AI agents. Bridges frontier LLM capabilities with deterministic operational constraints across Google Antigravity, Claude Code, and Hermes.
+Compose, audit, optimize, and grade high-precision prompts for AI agents. Bridges frontier LLM capabilities with deterministic operational constraints across providers in Leonidas Code and existing unattended workers.
 
 ---
 
@@ -48,6 +49,8 @@ Compose, audit, optimize, and grade high-precision prompts for AI agents. Bridge
 
 ### Phase 0: Engine & Scaffolding Inference
 To eliminate user friction, do NOT ask the operator what model will be used unless genuinely ambiguous. Autonomously infer the target model from conversational context or active harness:
+Infer the selected provider/model from Leonidas Code live capabilities, not the app name. Old harness names below identify model families only; they do not route users into old interfaces.
+
 1. **Claude Context (Opus 5.5 / Sonnet 5):** Target if prompt mentions Claude, Anthropic, or runs inside Claude Code. Requires **Minimal Scaffolding** (frontier reasoning, native extended thinking, high steerability).
 2. **Antigravity Context (Gemini 3.8 Flash / Pro):** Target if prompt mentions Antigravity, Google AI, or runs inside Antigravity. Requires **Medium Scaffolding** (tool-centric bounds, test-first CLI verification commands).
 3. **Hermes Context (GLM 5.3 Flash / Nous):** Target if prompt mentions Hermes, kanban workers, or cron fleets. Requires **High Scaffolding** (strict sequential numbered steps, explicit JSON/schema contracts).
@@ -96,7 +99,7 @@ Apply the scaffolding profile matched in Phase 0:
 
 ## 3. Output Format Standard
 
-When invoked, the skill outputs a structured diagnosis followed by dual production-ready variants:
+When invoked, the skill outputs a structured diagnosis followed by one primary, production-ready prompt by default:
 
 ### 1. Diagnosis & Grading (100-Point Rubric)
 - **Score:** `XX / 100`
@@ -108,10 +111,8 @@ When invoked, the skill outputs a structured diagnosis followed by dual producti
   - *Scope & Guardrail Boundaries (15 pts):* Are forbidden files/actions explicitly bounded?
 - **Key Enhancements Made:** 2-3 bullets stating what was pruned or sharpened.
 
-### 2. Production Prompts
-
-#### ⚡ Option 1: Direct-Paste Prompt (Zero-Edit)
-A complete, self-contained prompt ready to copy-paste immediately into the target agent, with prepended slash command if intended for manual operator use.
+### 2. Primary Production Prompt (Zero-Edit Direct-Paste)
+Deliver the single optimal, model-calibrated production prompt ready to copy-paste immediately into the target agent. Dual variants or reusable templates are omitted by default and generated only when explicitly requested by the operator or when two fundamentally distinct execution modes exist.
 
 ```markdown
 [/slash-command if manual]
@@ -133,9 +134,6 @@ A complete, self-contained prompt ready to copy-paste immediately into the targe
 - [Exact test command or observable terminal condition]
 </verification>
 ```
-
-#### 🎯 Option 2: Scoped Template (Context-Targeted)
-A reusable template variant containing explicit `[BRACKETED_PLACEHOLDERS]` for recurring or parameterized execution.
 
 ---
 
@@ -176,5 +174,5 @@ The composition or review task is complete when:
 2. Relevant AIOS skills are detected and prepended (slash command for manual, direct directive for autonomous).
 3. All no-ops and conversational pleasantries are pruned.
 4. Definition of Done contains binary, observable verification gates.
-5. Dual variants (Direct-Paste and Scoped Template) are delivered inside fenced code blocks.
+5. Single primary calibrated prompt is delivered inside a fenced code block (with dual variants omitted unless requested).
 6. Persistence evaluation is completed and {{OPERATOR_NAME}}'s approval is requested before saving to `prompts/`.

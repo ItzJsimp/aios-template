@@ -1,1 +1,0 @@
-{ "name": "cache-clock", "version": "0.1.0", "description": "Band above the prompt showing prompt-cache time left (1h TTL) and context size; no compact button.", "types": "./types/index.d.ts" }

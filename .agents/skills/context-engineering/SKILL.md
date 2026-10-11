@@ -3,6 +3,7 @@ name: context-engineering
 description: "Structure context hierarchies, rules files, and knowledge stores for minimal token burn and high agent recall."
 category: efficiency
 scope: structural
+distribution: template
 type: skill
 id: skill-context-engineering
 title: Context Engineering

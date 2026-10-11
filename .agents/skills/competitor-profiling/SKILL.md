@@ -3,6 +3,7 @@ name: "competitor-profiling"
 description: "Research and analyze competitors from their URLs into structured dossiers covering positioning, pricing, value propositions, and moats."
 category: "money"
 scope: "structural"
+distribution: core
 type: "skill"
 id: "skill-competitor-profiling"
 title: "Competitor Profiling"

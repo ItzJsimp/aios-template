@@ -3,6 +3,7 @@ name: "defuddle"
 description: "Extract clean, reader-mode Markdown from web URLs using Defuddle CLI, stripping navigation bars, ads, cookie banners, and DOM clutter."
 category: "efficiency"
 scope: "structural"
+distribution: core
 type: "skill"
 id: "skill-defuddle"
 title: "Defuddle"

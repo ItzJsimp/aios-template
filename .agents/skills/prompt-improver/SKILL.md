@@ -3,6 +3,7 @@ name: prompt-improver
 description: "Enrich underspecified prompts with targeted research, grounded constraints, and unambiguous intent."
 category: agents
 scope: structural
+distribution: core
 type: canon
 id: skill-prompt-improver
 kind: procedure

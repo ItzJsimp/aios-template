@@ -3,6 +3,7 @@ name: "cold-email"
 category: "money"
 description: "Write high-converting B2B cold email sequences, subject lines, personalized openers, and multi-touch follow-ups that get replies."
 scope: "structural"
+distribution: core
 type: "skill"
 id: "skill-cold-email"
 title: "Cold Email"

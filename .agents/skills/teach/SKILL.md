@@ -3,6 +3,7 @@ name: teach
 description: "Interactive Socratic teaching framework to explain new concepts, tools, or skills step-by-step."
 category: research
 scope: structural
+distribution: core
 type: skill
 id: skill-teach
 title: Teach

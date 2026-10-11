@@ -3,6 +3,7 @@ name: "design-audit"
 description: "Audit any UI, app screen, web page, HTML artifact or document against a scored pass/fail design rubric; screenshot at 3 sizes, list defects with plain-English fixes, route deep critique to impeccable."
 category: design
 scope: structural
+distribution: template
 type: skill
 id: skill-design-audit
 title: "Design Audit: the pass/fail quality gate"
