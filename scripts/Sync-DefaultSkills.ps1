@@ -30,26 +30,28 @@ elseif (Test-Path -LiteralPath (Join-Path $repo 'projects')) {
         ForEach-Object { $_.FullName })
 }
 $updated = 0
-foreach ($target in $targets | Select-Object -Unique) {
-    $destination = Join-Path $target '.agents/skills/next-action'
-    if ([IO.Path]::GetFullPath($source) -eq [IO.Path]::GetFullPath($destination)) { continue }
-    $backup = Join-Path $target ('.aios-backups/next-action-' + (Get-Date -Format 'yyyyMMdd-HHmmss-ffff'))
+function Copy-DefaultSkill([string]$Destination, [string]$Backup) {
     foreach ($file in Get-ChildItem -LiteralPath $source -File -Recurse | Where-Object { $_.Name -notlike '*.pyc' -and $_.FullName -notmatch '__pycache__' }) {
         $relative = [IO.Path]::GetRelativePath($source, $file.FullName)
-        $dest = Join-Path $destination $relative
+        $dest = Join-Path $Destination $relative
         if ((Test-Path -LiteralPath $dest) -and ((Get-FileHash -LiteralPath $dest).Hash -eq (Get-FileHash -LiteralPath $file.FullName).Hash)) { continue }
         if ($PSCmdlet.ShouldProcess($dest, 'Install default next-action skill, backing up changes')) {
             if (Test-Path -LiteralPath $dest) {
-                $save = Join-Path $backup $relative
+                $save = Join-Path $Backup $relative
                 New-Item -ItemType Directory -Path (Split-Path $save) -Force | Out-Null
                 [IO.File]::WriteAllText((Join-Path $target '.aios-backups/.gitignore'), "*`n")
                 Copy-Item -LiteralPath $dest -Destination $save
             }
             New-Item -ItemType Directory -Path (Split-Path $dest) -Force | Out-Null
             Copy-Item -LiteralPath $file.FullName -Destination $dest -Force
-            $updated++
+            $script:updated++
         }
     }
+}
+foreach ($target in $targets | Select-Object -Unique) {
+    $destination = Join-Path $target '.agents/skills/next-action'
+    $backup = Join-Path $target ('.aios-backups/next-action-' + (Get-Date -Format 'yyyyMMdd-HHmmss-ffff'))
+    Copy-DefaultSkill $destination $backup
     $adapter = Join-Path $target '.claude/skills/next-action'
     if ($PSCmdlet.ShouldProcess($adapter, 'Make default skill discoverable to the Claude provider')) {
         if (-not (Test-Path -LiteralPath $adapter)) {
@@ -59,7 +61,7 @@ foreach ($target in $targets | Select-Object -Unique) {
             if ($IsWindows) { New-Item -ItemType Junction -Path $adapter -Target $destination | Out-Null }
             else { New-Item -ItemType SymbolicLink -Path $adapter -Target $destination | Out-Null }
         } elseif (-not (Get-Item -LiteralPath $adapter).LinkType -and -not (Get-Item -LiteralPath (Split-Path $adapter)).LinkType) {
-            Write-Warning "Existing real provider copy at $adapter was preserved; use the canonical skill at $destination."
+            Copy-DefaultSkill $adapter (Join-Path $backup "provider-copy")
         }
     }
 }
