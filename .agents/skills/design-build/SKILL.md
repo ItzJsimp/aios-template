@@ -11,7 +11,14 @@ kind: procedure
 load: on-demand
 owner: aios
 verified: 2026-09-28
-related: ["design-audit", "impeccable", "standard-design-system", "app-building-standard", "ai-build-protocol"]
+related:
+  [
+    "design-audit",
+    "impeccable",
+    "standard-design-system",
+    "app-building-standard",
+    "ai-build-protocol",
+  ]
 ---
 
 # Design Build

@@ -70,6 +70,24 @@ Set-MigratedFile 'CLAUDE.md' $claude
 if (Test-Path -LiteralPath (Join-Path $target '.claude/claude-overlay.md')) {
     Set-MigratedFile '.claude/claude-overlay.md' "# Claude provider compatibility`n`nUse the [shared operating layer](../$overlayRel) in Leonidas Code.`n"
 }
+# Shared tools (such as the meetings MCP server) ship whole; their MCP entries are added, never replaced.
+$toolsRoot = Join-Path $source 'tools'
+if (Test-Path -LiteralPath $toolsRoot -PathType Container) {
+    Get-ChildItem -LiteralPath $toolsRoot -Recurse -File | Where-Object { $_.FullName -notmatch '[\\/]__pycache__[\\/]' } | ForEach-Object {
+        Set-MigratedFile ([IO.Path]::GetRelativePath($source, $_.FullName).Replace('\', '/')) ([IO.File]::ReadAllText($_.FullName))
+    }
+}
+$mcpSource = Join-Path $source '.mcp.json'
+if (Test-Path -LiteralPath $mcpSource -PathType Leaf) {
+    $mcpTarget = Join-Path $target '.mcp.json'
+    $have = if (Test-Path -LiteralPath $mcpTarget) { [IO.File]::ReadAllText($mcpTarget) | ConvertFrom-Json -AsHashtable } else { @{} }
+    if (-not $have.ContainsKey('mcpServers')) { $have['mcpServers'] = [ordered]@{} }
+    $added = 0
+    foreach ($kv in ([IO.File]::ReadAllText($mcpSource) | ConvertFrom-Json -AsHashtable)['mcpServers'].GetEnumerator()) {
+        if (-not $have['mcpServers'].Contains($kv.Key)) { $have['mcpServers'][$kv.Key] = $kv.Value; $added++ }
+    }
+    if ($added) { Set-MigratedFile '.mcp.json' (($have | ConvertTo-Json -Depth 20) + "`n") }
+}
 & (Join-Path $source "scripts/Sync-DefaultSkills.ps1") -RepoPath $target -SourceRoot $source -WhatIf:$WhatIfPreference
 
 Write-Host "Updated $writes instruction files. Personal memory and project files were not modified."

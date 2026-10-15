@@ -13,7 +13,7 @@ Run when {{OPERATOR_NAME}} asks to work the whole list down ("take my tasks to z
 
 ## 2. {{OPERATOR_NAME}} pass (one grill, all frontier questions at once)
 
-Ask, using the [grilling engine](../../grill-me/references/grilling-engine.md) format, only what the facts can't answer: burndown policy (execute all, bankruptcy with an undo, or keep-or-kill rounds), Hermes status, engine split, session shape, execution order, and approval for the lane re-gate (`Test-TaskGate.ps1 -All -Apply`). Find facts first: lane, priority and age counts, engine health, and money state.
+Ask, using the [grilling](../../grilling/SKILL.md) format, only what the facts can't answer: burndown policy (execute all, bankruptcy with an undo, or keep-or-kill rounds), Hermes status, engine split, session shape, execution order, and approval for the lane re-gate (`Test-TaskGate.ps1 -All -Apply`). Find facts first: lane, priority and age counts, engine health, and money state.
 
 ## 3. Engine routing ({{OPERATOR_NAME}}'s standing preferences, `memory/observed/patterns.md`)
 

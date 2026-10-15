@@ -12,7 +12,7 @@ kind: procedure
 load: on-demand
 owner: shared
 verified: 2026-08-22
-related: ["skills-index", "aios-os-audit", "ponytail:ponytail-review"]
+related: ["skills-index", "aios-os-audit", "ponytail-review"]
 generated: false
 disable-model-invocation: true
 ---

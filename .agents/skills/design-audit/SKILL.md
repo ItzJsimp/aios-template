@@ -26,13 +26,13 @@ Works on anything with a visual surface: web apps and pages, desktop apps (Qt, E
    - **What and why:** the surface, what the user does there, how often.
    - **Stack:** web, Qt, other desktop, static HTML, or document/PDF.
    - **Canon:** the project's own design system if it has one (a `DESIGN.md`, a tokens file, a theme module); otherwise AIOS canon, [`standards/design-system.md`](../../../standards/design-system.md) (Command register for apps, Dispatch register for documents) and [`standards/app-building-standard.md`](../../../standards/app-building-standard.md). Say which canon you are judging against.
-   - **Mode:** impeccable's modes: *Operate* (apps, dashboards, tools), *Read* (docs, reports), *Persuade* (landing pages), *Experience* (portfolios, showcases).
+   - **Mode:** impeccable's modes: _Operate_ (apps, dashboards, tools), _Read_ (docs, reports), _Persuade_ (landing pages), _Experience_ (portfolios, showcases).
 2. **Capture evidence before judging.** Never judge from code alone. Screenshot at 3 sizes:
    - Web and HTML: `mcp__Claude_Browser__resize_window` to 1440x900, 1024x768 and 375x812 (or 768x1024 for desktop-only apps), screenshot each.
    - Qt: the `grab()` snippet in [`references/qt-audit.md`](references/qt-audit.md) at full-screen, half-screen and the window minimum.
    - Other desktop apps: OS screenshots at the same three window sizes.
    - Documents and PDFs: render pages to images (first page, a dense page, the last page).
-   Also capture one empty state and one error state when the surface shows data.
+     Also capture one empty state and one error state when the surface shows data.
 3. **Run the rubric.** Walk every gate in [`references/rubric.md`](references/rubric.md). Qt surfaces add [`references/qt-audit.md`](references/qt-audit.md). Mark each finding P0 (blocking), P1 (fix before calling done) or P2 (polish). Gates that cannot apply (motion on a PDF) are marked n/a with a reason.
 4. **Score heuristics.** For web, run impeccable `critique` ([`../impeccable/reference/critique.md`](../impeccable/reference/critique.md)) for the Nielsen 0-4 table and impeccable `audit` ([`../impeccable/reference/audit.md`](../impeccable/reference/audit.md)) for technical checks (`audit.native.md` for iOS and Android). For everything else, score the same 10 Nielsen heuristics by hand from the screenshots using the anchors in the critique reference, marking non-applicable ones n/a.
 5. **Verdict.** FAIL if any P0 exists, or more than 3 P1s, or the heuristic total is under 70 percent of the applicable maximum (28/40 when all ten apply). Otherwise PASS. State it on line one.
@@ -44,9 +44,9 @@ Line 1: `Verdict: FAIL (2 P0, 4 P1) · Heuristics 26/40 · <surface> · judged a
 
 Then one table, worst first. The "In plain English" column is mandatory: it is what {{OPERATOR_NAME}} reads.
 
-| # | Sev | Where | Problem | In plain English | Fix |
-|---|---|---|---|---|---|
-| 1 | P0 | `voice.py:243` | 8 widgets in one QHBoxLayout, label has no elide | The status line gets chopped off when the window is narrow | Split into a status row and an actions row; elide with the full text in the tooltip |
+| #   | Sev | Where          | Problem                                          | In plain English                                           | Fix                                                                                 |
+| --- | --- | -------------- | ------------------------------------------------ | ---------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| 1   | P0  | `voice.py:243` | 8 widgets in one QHBoxLayout, label has no elide | The status line gets chopped off when the window is narrow | Split into a status row and an actions row; elide with the full text in the tooltip |
 
 Then: the screenshots (or their paths), and one line naming the single change with the biggest visible payoff.
 

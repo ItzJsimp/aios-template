@@ -43,7 +43,7 @@ The gate stands in for "{{AIOS_NAME}} matches or beats {{OPERATOR_NAME}}'s quali
 
 Check or re-check one task: `pwsh -NoProfile -File scripts/Test-TaskGate.ps1 -TaskFile <slug>.md`. Override with `-Lane` on `New-Task.ps1` only when {{OPERATOR_NAME}} says so.
 
-**Grill protocol (lane `grill`).** Ask at most 3 questions, each aimed at the failing gate ("what proves this is done?", "whose standard judges it?"), using the [grilling engine](../grill-me/references/grilling-engine.md) option format. Write the answers into the task's `## Done when`, re-run the gate, and continue with the new lane. If {{OPERATOR_NAME}} is away, the task keeps `lane: grill` and surfaces in the next `/next-action` grill batch.
+**Grill protocol (lane `grill`).** Ask at most 3 questions, each aimed at the failing gate ("what proves this is done?", "whose standard judges it?"), using the [grilling](../grilling/SKILL.md) option format. Write the answers into the task's `## Done when`, re-run the gate, and continue with the new lane. If {{OPERATOR_NAME}} is away, the task keeps `lane: grill` and surfaces in the next `/next-action` grill batch.
 
 ## 3. Query
 
