@@ -1,56 +1,174 @@
 ---
 name: next-action
-description: "Recommend up to five ready tasks from the current project or AIOS, matched to the operator, energy, time, and focus. Use for next action or what should I work on."
+description: "Pick the best next tasks from the user's or project's task folder, tailored to operator, project, energy, and execution mode. Use for next action, what should I work on, or current action."
 category: flow
 scope: structural
 distribution: core
 ---
 
-# Next Action
+# Next Action: Context-Aware Task Discovery & Routing Engine
 
-Discover the current project's real tasks, offer a quick optional intake, and present up to five grounded choices with an execution recommendation. Recommendation alone does not authorize starting work or launching agents.
+Find the real task store for the current project and operator, conduct quick interactive intake, rank the top 5 concrete actions, and route each to its optimal execution path (in-chat execution, fresh session prompt via prompt-composer, or autonomous subagents).
 
-## Resolve scope first
+Works in any AIOS (any {{AIOS_NAME}}) or standalone project repository (such as `aios-code`).
 
-Use the active thread workspace, not the skill installation directory. Read its instructions and project brief. Identify the operator from the active user's canon or explicit message; OS and Git usernames are hints, not identity proof. Pass a confirmed operator with `--user`.
+---
 
-Run the [resolver](./scripts/resolve_tasks.py):
+## Phase 1: Context & Store Resolution
 
-```sh
-python <skill-folder>/scripts/resolve_tasks.py --workspace <active-workspace> --rank --user <operator>
+Run the bundled resolver with `--rank`:
+
+```bash
+python <skill-folder>/scripts/resolve_tasks.py --workspace <workspace> --rank
 ```
 
-It checks the workspace and bounded ancestors for a task store and validates its relative cache. In an AIOS project it scopes the parent store to that project. Project views are read paths; update the canonical card. Use `--tasks-dir` for an explicitly configured external store, `--project` for a confirmed project slug, and `--all-projects` only when the user chooses broader scope. A missing store or zero matching tasks is a discovery result, never permission to substitute another project's backlog.
+### Discovery & Project Awareness
 
-For a standalone checkout, inspect the project instructions for its configured task source. If the project uses shared GitHub Issues, read open issues from the declared repository with the available connector or `gh issue list`, then inspect candidate issue bodies for readiness and assignment. Report access errors accurately. Do not scan another user's private AIOS to fill gaps. If Python is unavailable, inspect the local cache and workspace/ancestor task folders directly, apply the same project and status filters, and disclose the fallback.
+1. **Project Detection**: Detects whether the active session is running inside a specific project (e.g. `aios-code`, `aios-scribe`, etc.) or in an AIOS root.
+   - For `aios-code` (standalone clone or within an AIOS `projects/aios-code` directory): prioritizes tasks belonging to `aios-code`.
+   - Resolves generated project views, handles symlinks, and falls back to parent AIOS task stores if symlinks are unlinked or in separate checkouts.
+2. **Operator Awareness**: Automatically identifies the active user:
+   - **Operator lane**: Prioritizes tasks whose `lane` or `owner` matches the active user, plus unassigned project work (`lane: agent`, `lane: aios`), and hides other people's personal lanes.
+3. **Cache & Fallback**: Validates cached store path in `.agents/next-action.json`. If Python is unavailable, uses the documented filesystem fallback.
 
-## Quick intake
+---
 
-Preserve preferences already supplied; ask only missing questions. Explicit skip means no intake. Otherwise ask sequentially with the active provider's available interactive question tool (`ask_question`, `request_user_input_async`, or equivalent), using its actual schema. If unavailable, show one compact numbered choice in chat. Await each answer before asking the next question; a preselected option or elapsed time is not an answer.
+## Phase 2: Interactive Quick Intake (2 to 4 Questions)
 
-Ask two to four short questions, normally energy, time, and focus. Add execution preference only when it would change the recommendations. On the first question put **Skip all: recommend for me** first; choosing it ends all remaining intake. Each later question starts with **Recommend for me**, preserving earlier answers.
+If the user already provided preferences in their prompt (e.g. "next action, skip", "what should I work on next, high energy", or specific domain constraints), **skip intake completely** and proceed straight to ranking.
 
-- Energy: Skip all / Low: quick wins / Medium: focused slice / High: deep work.
-- Time: Recommend / 15 minutes / 45 minutes / 90+ minutes.
-- Focus: Recommend within current project / two real areas found in its tasks / choose another project or domain. In an AIOS root, use actual projects or domains rather than assuming code work.
-- Execution, when useful: Recommend / Work here / Prepare fresh-chat prompt / Consider delegation.
+Otherwise, prompt the user with interactive modal questions using the `ask_question` tool:
 
-Prefer the tool's supported option limit. If only three options are supported, combine medium/high as a focused-work choice and accept free text. Do not invent tool fields or display all questions together, which breaks skip-all.
+### Question 1: Energy Level (With Quick Skip All)
 
-## Rank and verify
+- **Question**: `"What is your current energy level for this session?"`
+- **Options**:
+  1. `(Recommended) Skip all & pick best match for me`
+  2. `High Energy (Deep work, complex architecture, large feature build)`
+  3. `Medium Energy (Focused slice, refactor, targeted bug fix, docs)`
+  4. `Low Energy (Quick wins, chores, review backlog, small polish)`
+- `is_multi_select`: false
 
-Re-run the resolver with the same scope and selected `--energy` and `--focus` (`code`, `arch`, `review`, or `all`). Its score is a candidate ordering, not proof of readiness. Inspect each shortlisted card or issue, including acceptance gates, dependencies, current status, assignment, and relevant project state. Exclude Done, Retired, Dormant, Blocked, unknown-status, and explicitly other-owner work. A person's name in a title is not ownership. Agent lanes describe execution responsibility, not personal identity.
+> **CRITICAL SKIP RULE**:
+> If the user selects Option 1 (`(Recommended) Skip all & pick best match for me`), **immediately stop asking questions**. Do NOT show Question 2 or Question 3. Proceed directly to ranking with AI-recommended defaults.
 
-Use time as a fit constraint after reading the gates; label estimates as estimates, and propose one bounded slice when a whole task exceeds the time available. Unknown effort stays unknown. Priority and unblocking value lead; operator fit, energy, time, focus, and continuation of existing work break ties. Use the user's known preferences only from their own canon. Deduplicate canonical cards and views. If fewer than five qualify, show fewer and explain why. If none qualify, state the discovery or readiness gap and offer one concrete resolution.
+### Question 2: Scope & Focus Area (Only if Question 1 was NOT skipped)
 
-Present the scope, operator, capacity, and task source once, then a numbered list of at most five choices. For each: clickable source, outcome, why now, estimated effort if supported, first action under two minutes, and recommended route. Use the active harness's link format, never fabricate `file:` URLs. Keep each item compact; identify the recommended first pick and what would change it.
+- **Question**: `"Which area would you like to focus on?"`
+- **Options**:
+  1. `(Recommended) Best ready task in current project`
+  2. `Core Code & Features (Implementation, bug fixes, UI/UX)`
+  3. `Architecture & System Design (Prototypes, specifications, planning)`
+  4. `Cleanup, Testing & Docs (Test suite, tech debt, documentation)`
+- `is_multi_select`: false
 
-## Continue the selected task
+### Question 3: Execution Preference (Optional / Filter)
 
-End with simple choices: `1` to work here, `Prompt 2` for a focused handoff, or `Delegate 3,4` to delegate specified work. Keep the displayed task IDs and paths in conversation; re-read those exact tasks when selected, rather than re-ranking an index that may now name a different task.
+- **Question**: `"How would you prefer to tackle the work?"`
+- **Options**:
+  1. `(Recommended) Show top options with execution recommendations`
+  2. `In-Chat Execution (Work on it right here in this session)`
+  3. `Prompt Composer (Generate a prompt to spin up a new focused chat)`
+  4. `Subagent Delegation (Launch parallel background subagents)`
+- `is_multi_select`: false
 
-- **Work here:** best for a bounded slice with enough current context. Re-check status and permissions, update the canonical task state, execute the smallest meaningful checks, and record completion evidence. Read [proof gates](./references/proof-gates.md) when closing work.
-- **Fresh-chat prompt:** best when substantial unrelated context or a large distinct problem warrants a fresh session. Load the locally available prompt-composer skill and include workspace, exact task source, goal, file ownership, acceptance gates, and verification commands. Provide the prompt in chat. Save reusable prompts only with the user's confirmation; launch a top-level chat only when requested. If prompt-composer is unavailable, compose a concise handoff and disclose that fallback.
-- **Delegation candidate:** require clear file ownership, independent boundaries, available tools, and observable gates. An autonomous flag or a title containing audit/test is insufficient. Ask before spawning unless this session already authorizes it. Check live model capabilities and costs, use app-owned child delegation when available, retain task IDs, and integrate and verify results. Do not launch ordinary top-level chats as subagents. Concurrent workers must know they share a codebase and preserve others' edits. Serialized or overlapping tasks stay in one worker or this chat.
+---
 
-The Command Center surface is the existing Tasks view plus chat question cards and the ranked reply. Use that surface; any new task controls that spend or launch agents require authorization.
+## Phase 3: Rank & Present Top 5 Tasks
+
+Run the resolver with the selected parameters:
+
+```bash
+python <skill-folder>/scripts/resolve_tasks.py --workspace <workspace> --rank --energy <low|medium|high|all> --focus <code|arch|review|all>
+```
+
+Render the top 5 tasks in structured GitHub Markdown:
+
+```markdown
+# Next Actions for [User] · [Project]
+
+**Context:** Project: `[project]` | Operator: `[User]` | Energy: `[Level]` | Focus: `[Domain]`
+
+Here are the top 5 tasks ranked by priority and fit:
+
+### 1. [[Task Title]](file:///<absolute-path-to-task>)
+
+- **Priority:** High · **Effort:** Low · **Type:** Quick Win · **Lane:** [lane]
+- **Why Now:** [1-2 sentences on impact and why this is ready now]
+- **Recommended Route:** `🟢 In-Chat Execution` ("Bang it out right here")
+  - _Why:_ Compact scope, clear finish line, and instant test verification in this session.
+
+### 2. [[Task Title]](file:///<absolute-path-to-task>)
+
+- **Priority:** High · **Effort:** High · **Type:** Deep Work · **Lane:** [lane]
+- **Why Now:** [1-2 sentences on architectural necessity]
+- **Recommended Route:** `🔵 New Chat (Prompt Composer)` ("Spin up a new focused chat")
+  - _Why:_ Deep multi-file changes requiring fresh context window and dedicated extended reasoning.
+
+### 3. [[Task Title]](file:///<absolute-path-to-task>)
+
+- **Priority:** Medium · **Effort:** Medium · **Type:** Strategic · **Lane:** [lane]
+- **Why Now:** [1-2 sentences]
+- **Recommended Route:** `🟣 Subagent-Ready` ("Delegate to Subagent")
+  - _Why:_ Independent modular verification slice that background agents can run concurrently.
+
+[Tasks 4 and 5 in same format...]
+
+---
+
+### Next Steps:
+
+- **Execute in this chat:** Reply `1` (or `Execute #1`) to begin immediately.
+- **Spin up new chat:** Reply `Prompt #2` to get a production-ready, model-calibrated prompt via `prompt-composer`.
+- **Spawn subagents:** Reply `Delegate #3` (or `Delegate [3, 4]`) to launch background workers.
+```
+
+---
+
+## Phase 4: Execution Pathways
+
+Based on the user's choice:
+
+### 1. In-Chat Execution (`Execute #N`)
+
+- Authorized immediately when chosen.
+- Set task status to `In Progress` if tracked in a task ledger.
+- Execute in disciplined test-first slices (TDD).
+- Run project test/build commands to verify.
+- Commit changes following `safe-parallel-commit` protocol.
+
+### 2. Prompt Composer (`Prompt #N`)
+
+- When the user wants to spin up a new dedicated chat/session, invoke the `prompt-composer` skill.
+- Run `python <skill-folder>/scripts/resolve_tasks.py --workspace <workspace> --draft-prompt <N>` or compose the model-calibrated instruction block:
+
+```markdown
+<task>
+[Task Title]
+</task>
+
+<context>
+- Project: [project]
+- Task Card: [file path]
+- Objective: [Why now & key requirements]
+- Start Here: [Start file or entry point]
+</context>
+
+<rules>
+- Maintain code integrity and execute test-first slices.
+- Verify changes against project standards and ensure clean git status.
+- DO NOT edit unrelated files outside this task scope.
+</rules>
+
+<verification>
+[Test command or binary observable criteria from Done When]
+</verification>
+```
+
+### 3. Subagent Delegation (`Delegate #N` or `Delegate [N, M]`)
+
+- When the user chooses delegation or a task is flagged `🟣 Subagent-Ready`:
+  - In Leonidas Code / T3 harness: call `delegate_task` with structured brief.
+  - In Antigravity native: call `invoke_subagent`.
+  - Pass the exact task file, objective, boundaries, and acceptance tests.
+  - When subagents complete, summarize verified evidence and report back to the user.

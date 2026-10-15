@@ -156,3 +156,7 @@ Resolution order: G4, then G3, then G1/G2, then G5. All pass and small/mechanica
 **Measured confidence.** Sending an `Awaiting Review` task back runs `Invoke-TaskManagement.ps1 -Action Bounce`, incrementing `bounces:`. `Test-TaskGate.ps1 -Report` computes the send-back rate per lane and energy type; any group with 5+ samples above 10% is flagged for demotion to `grill`.
 
 **Hermes dispatch.** `hermes` tasks reach the Hermes kanban only through [`scripts/Send-TaskToHermes.ps1`](../scripts/Send-TaskToHermes.ps1) in explicit batches from `/next-action`; `-Sync` returns finished cards to `Awaiting Review`, and every card is independently verified before approval.
+
+## Status stays current
+
+{{OPERATOR_NAME}} never asks for task status updates. Before starting, check `tasks/` for an existing card (store cascade step 2). When work finishes, update the card in the same turn: Done via [`Complete-Task.ps1`](../scripts/Complete-Task.ps1); superseded via `status: Retired` plus a `## Resolution` block; scope change via the `## Done when` gates. Every `projects/<slug>/tasks/` is a generated symlink view ([`Sync-ProjectTaskViews.ps1`](../scripts/Sync-ProjectTaskViews.ps1)); never write inside it.

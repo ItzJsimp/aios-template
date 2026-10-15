@@ -73,6 +73,7 @@ $gateMap = @{
     10 = "ModelRegistry"
     11 = "WikiContradiction"
     12 = "AdrDeadTasks"
+    13 = "PerfInstrumentation"
 }
 
 
@@ -157,15 +158,27 @@ $FailCount = 0
 # -Gates runs that need no file list pay nothing. Drops only the trees every one of
 # those gates already excludes (.git, .obsidian, .claude, .gemini); each gate then
 # applies its own remaining exclusions. Same cmdlet and order as the per-gate walks it
-# replaces (hidden/system entries still skipped), so finding order is unchanged.
+# replaces (hidden/system entries still skipped), so finding order can differ from the old recursive listing.
 $script:AllFiles = $null
 function Initialize-AllFiles {
     if ($null -ne $script:AllFiles) { return }
     $commonExclude = [regex]::new('\\(\.git|\.obsidian|\.claude|\.gemini)\\', 'IgnoreCase')
     $list = [System.Collections.Generic.List[System.IO.FileInfo]]::new()
-    foreach ($f in Get-ChildItem -LiteralPath $RepoRoot -Recurse -File) {
-        # Symlinks are generated views (projects/<slug>/tasks/, ADR-0073): the real file is already in the list.
-        if (-not $commonExclude.IsMatch($f.FullName) -and -not $f.LinkType) { $list.Add($f) }
+    # Prune dependency and cache folders before listing them. The old full listing read node_modules and
+    # similar trees before filtering them out, which stalled every gate on a large workspace. Junctions
+    # are not followed, so a canonical skill is not listed again through each workspace link.
+    $pruneRx = [regex]::new('^(node_modules|__pycache__|\.venv|venv|site-packages|\.aios-backups)$', 'IgnoreCase')
+    $pending = [System.Collections.Generic.Stack[string]]::new()
+    $pending.Push($RepoRoot)
+    while ($pending.Count -gt 0) {
+        $dir = $pending.Pop()
+        foreach ($f in Get-ChildItem -LiteralPath $dir -File) {
+            # Symlinks are generated views (projects/<slug>/tasks/, ADR-0073): the real file is already in the list.
+            if (-not $commonExclude.IsMatch($f.FullName) -and -not $f.LinkType) { $list.Add($f) }
+        }
+        foreach ($d in Get-ChildItem -LiteralPath $dir -Directory) {
+            if (-not $pruneRx.IsMatch($d.Name) -and -not $d.LinkType -and -not $commonExclude.IsMatch($d.FullName + '\')) { $pending.Push($d.FullName) }
+        }
     }
     $script:AllFiles = $list
 }
@@ -615,7 +628,9 @@ foreach ($f in $script:AllFiles) {
     $rel = $full.Replace($RepoRoot, '').TrimStart('\/')
 
     # Check 2: Engine collision in subdirectories
-    if ($isBanned -and $f.DirectoryName -ne $RepoRoot) {
+    # Project roots (project standard entry files) and skill folders (vendor-shipped) may carry them.
+    $entryHomeOk = $rel -match '^(projects\\[^\\]+|\.agents\\skills\\[^\\]+)\\[^\\]+$'
+    if ($isBanned -and $f.DirectoryName -ne $RepoRoot -and -not $entryHomeOk) {
         Write-Host "  [FAIL] Banned engine name collision in: $rel (must disambiguate with -ai or -tool suffix)" -ForegroundColor Red
         $IssueCount++
         $FailCount++
@@ -921,6 +936,52 @@ if ((Test-Path -LiteralPath $decisionsDir) -and (Test-Path -LiteralPath $tasksDi
 }
 }
 
+# 13. Performance Instrumentation Gate (standards/perf-registry.json)
+# Every registered component keeps its vendored emitter identical to templates/perf-emitters and a live
+# call site; code projects absent from the registry (and not exempted with a reason) warn.
+if (Test-GateEnabled 13 "PerfInstrumentation") {
+Start-Gate "[13/13] Checking Performance Instrumentation..."
+$perfRegPath = Join-Path $RepoRoot "standards/perf-registry.json"
+if (-not (Test-Path -LiteralPath $perfRegPath)) {
+    Write-Host "  [FAIL] standards/perf-registry.json is missing" -ForegroundColor Red
+    $IssueCount++; $FailCount++
+} else {
+    $perfReg = Get-Content -LiteralPath $perfRegPath -Raw -Encoding UTF8 | ConvertFrom-Json
+    $perfBad = 0
+    $norm = { param($p) (Get-Content -LiteralPath $p -Raw -Encoding UTF8) -replace "`r`n", "`n" }
+    foreach ($c in $perfReg.components) {
+        $em = Join-Path $RepoRoot $c.emitter
+        $hk = Join-Path $RepoRoot $c.hook
+        if (-not (Test-Path -LiteralPath $em)) {
+            Write-Host "  [FAIL] $($c.id): emitter $($c.emitter) is missing" -ForegroundColor Red
+            $IssueCount++; $FailCount++; $perfBad++; continue
+        }
+        if ($c.PSObject.Properties['template']) {
+            $tp = Join-Path $RepoRoot $c.template
+            if ((Test-Path -LiteralPath $tp) -and ((& $norm $em) -ne (& $norm $tp))) {
+                Write-Host "  [FAIL] $($c.id): $($c.emitter) drifted from $($c.template); re-copy the template" -ForegroundColor Red
+                $IssueCount++; $FailCount++; $perfBad++
+            }
+        }
+        if (-not (Test-Path -LiteralPath $hk) -or -not (Select-String -LiteralPath $hk -SimpleMatch $c.hookToken -Quiet)) {
+            Write-Host "  [FAIL] $($c.id): call site $($c.hook) no longer contains '$($c.hookToken)'" -ForegroundColor Red
+            $IssueCount++; $FailCount++; $perfBad++
+        }
+    }
+    $known = @($perfReg.components.id) + @($perfReg.exempt.PSObject.Properties.Name)
+    $codeExt = '*.py', '*.ts', '*.ps1', '*.cs', '*.js'
+    foreach ($pd in Get-ChildItem -LiteralPath (Join-Path $RepoRoot "projects") -Directory) {
+        if ($known -contains $pd.Name) { continue }
+        $hasCode = Get-ChildItem -LiteralPath $pd.FullName -Include $codeExt -Recurse -File -ErrorAction SilentlyContinue |
+            Where-Object { $_.FullName -notmatch '[\\/](node_modules|\.git|dist|__pycache__)[\\/]' } | Select-Object -First 1
+        if ($hasCode) {
+            Write-Finding "  [WARN] projects/$($pd.Name) has code but no perf registration or exemption in standards/perf-registry.json"
+            $IssueCount++
+        }
+    }
+    if ($perfBad -eq 0) { Write-Host "  -> $(@($perfReg.components).Count) registered component(s) instrumented." -ForegroundColor Green }
+}
+}
 
 Close-GateOutput
 Write-Host ""

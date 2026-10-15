@@ -3,6 +3,7 @@ name: youtube-analyzer
 description: "Analyze YouTube videos or channels to extract creator formulas, transcripts, and timestamped notes."
 category: research
 scope: structural
+distribution: template
 type: skill
 id: skill-youtube-analyzer
 title: "YouTube Analyzer : Multimodal Video Intelligence"

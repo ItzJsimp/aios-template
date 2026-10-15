@@ -12,6 +12,7 @@ load: "on-demand"
 owner: "shared"
 verified: "2026-10-04"
 source: "https://github.com/coreyhaines31/marketingskills (skills/marketing-plan)" 
+disable-model-invocation: true
 ---
 # Marketing Plan
 

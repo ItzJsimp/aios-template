@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "meetings": {
+      "command": "python",
+      "args": ["tools/meetings/mcp_server.py"]
+    }
+  }
+}

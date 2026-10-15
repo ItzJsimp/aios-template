@@ -3,6 +3,7 @@ name: grill-with-docs
 description: "Interview {{OPERATOR_NAME}} on a plan and write the outcomes to canon as it goes: ADRs in decisions/, terms in CONTEXT.md, then an implementation checklist."
 category: planning
 scope: structural
+source: "https://github.com/mattpocock/skills (skills/engineering/grill-with-docs, MIT, adapted for the AIOS)"
 distribution: core
 disable-model-invocation: true
 ---

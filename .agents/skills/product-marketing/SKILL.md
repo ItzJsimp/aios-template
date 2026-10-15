@@ -12,6 +12,7 @@ load: "on-demand"
 owner: "shared"
 verified: 2026-10-04
 source: "https://github.com/coreyhaines31/marketingskills (skills/product-marketing, MIT, commit dda3841)"
+disable-model-invocation: true
 ---
 # Product Marketing Context
 

@@ -291,6 +291,9 @@ verified: $today
 
 & (Join-Path $PSScriptRoot "Sync-DefaultSkills.ps1") -RepoPath $RepoPath -SourceRoot $RepoPath -ProjectPath $projectDir | Out-Null
 
+# 3b. Perf instrumentation: Detect-Drift gate 13 warns until this project registers an emitter
+Write-Host "Perf: copy templates/perf-emitters/ into the project and add it to standards/perf-registry.json (gate 13 warns until then)." -ForegroundColor DarkGray
+
 # 3c. tasks/ view (project-standard section 10): symlinks to this project's cards in the AIOS tasks/
 & (Join-Path $PSScriptRoot "Sync-ProjectTaskViews.ps1") -RepoPath $RepoPath -Project $cleanSlug | Out-Null
 

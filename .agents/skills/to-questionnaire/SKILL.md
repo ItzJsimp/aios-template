@@ -3,6 +3,7 @@ name: to-questionnaire
 description: "Convert open decisions into asynchronous, standalone Markdown questionnaires for collaborators."
 category: planning
 scope: structural
+source: "https://github.com/mattpocock/skills (skills/productivity/to-questionnaire, MIT, adapted for the AIOS)"
 distribution: core
 type: skill
 id: skill-to-questionnaire

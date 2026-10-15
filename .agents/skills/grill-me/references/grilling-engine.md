@@ -10,18 +10,21 @@ Interview the user relentlessly until you reach a shared understanding. Map this
 ## 1. Setup & Pre-Round Fact Finding
 
 Before Round 1:
+
 1. **Gather Environment Facts:** Finding facts is the agent's job, never the user's. When a question needs facts from the environment (filesystem, code, configs, tools), look them up directly via tools or dispatch a subagent. Never ask the user for facts you can discover yourself.
 2. **Initialize Capture File:** Create the capture file at `logs/grill-sessions/{YYYY-MM-DD}-{topic-slug}.md` (create the directory if missing; fetch date via `Get-Date -Format yyyy-MM-dd` or `date +%F`, never guess). Populate header: Topic, Date, One-line Goal, and Pre-Round Facts. Tell the user in one line where it is saving, then ask Round 1.
-The file, not the conversation, is the durable source of truth: a session that compacts mid-interview must not lose more than the round in flight.
+   The file, not the conversation, is the durable source of truth: a session that compacts mid-interview must not lose more than the round in flight.
 
 ## 2. The Frontier & Round Discipline
 
 Work the design tree in **rounds**.
-- The **frontier** is every architectural or strategic decision whose prerequisites are already settled: questions you can ask *now* without guessing answers you haven't heard yet. Ask the whole frontier in one round.
-- A question whose answer depends on another open question belongs to a *later* round.
+
+- The **frontier** is every architectural or strategic decision whose prerequisites are already settled: questions you can ask _now_ without guessing answers you haven't heard yet. Ask the whole frontier in one round.
+- A question whose answer depends on another open question belongs to a _later_ round.
 - If a fact lookup is ongoing, only downstream dependent questions wait; ask the rest of the frontier immediately.
 
 ### Design and Taste Interviews
+
 For visual or aesthetic decisions, convert option branches into generated artifacts (images, mockups) and run each round on a labeled contact sheet: the operator answers from pixels, not prose. A picked artifact can settle multiple branches at once; record the winner and its recipe in the capture file.
 
 ## 3. Option Quality Ceiling Standard
@@ -51,6 +54,7 @@ To ensure options are genuinely valuable, diverse, and useful rather than obviou
 ## 4. The Recommended Answer & Deciding Factor
 
 Preserve the fast-path for the operator. Lead with a clear recommendation, the single deciding factor, and what flips it:
+
 - Format: `➡️ **Recommended: <Letter>** - <Decisive rationale and single deciding factor>. **What flips it:** <The exact constraint, priority shift, or trade-off that would make another option superior>.`
 - This enables rapid scanning: the operator can read the question, glance at the recommendation and "What flips it", and either accept it in seconds or explore the steelmanned alternatives.
 
@@ -60,17 +64,19 @@ Format every round exactly like this. This is a template to imitate, not literal
 Each option line stays 1 to 2 punchy, high-signal sentences; never emit conversational filler or multi-paragraph padding inside a candidate option.
 
 ❓ **Q1** - **<question title>**: <context, technical tension, or problem statement>
-- **A)** **<Option Title / Archetype>**: <Concrete mechanism>. *(Wins when: <condition>)*
-- **B)** **<Option Title / Archetype>**: <Concrete mechanism>. *(Wins when: <condition>)*
-- **C)** **<Option Title / Archetype>**: <Concrete mechanism>. *(Wins when: <condition>)*
+
+- **A)** **<Option Title / Archetype>**: <Concrete mechanism>. _(Wins when: <condition>)_
+- **B)** **<Option Title / Archetype>**: <Concrete mechanism>. _(Wins when: <condition>)_
+- **C)** **<Option Title / Archetype>**: <Concrete mechanism>. _(Wins when: <condition>)_
 
 ➡️ **Recommended: <Letter>** - <rationale and single deciding factor>. **What flips it:** <condition>.
 
 ---
 
 ❓ **Q2** - **<question title>**: <context, technical tension, or problem statement>
-- **A)** **<Option Title / Archetype>**: <Concrete mechanism>. *(Wins when: <condition>)*
-- **B)** **<Option Title / Archetype>**: <Concrete mechanism>. *(Wins when: <condition>)*
+
+- **A)** **<Option Title / Archetype>**: <Concrete mechanism>. _(Wins when: <condition>)_
+- **B)** **<Option Title / Archetype>**: <Concrete mechanism>. _(Wins when: <condition>)_
 
 ➡️ **Recommended: <Letter>** - <rationale and single deciding factor>. **What flips it:** <condition>.
 
@@ -82,6 +88,7 @@ Each option line stays 1 to 2 punchy, high-signal sentences; never emit conversa
 ## 7. Session Synthesis & Bridge to Execution
 
 When the frontier is empty (all branches visited, zero hidden assumptions remaining), deliver a final synthesis and append it to the capture file:
+
 - **Settled Architecture:** The agreed design, components, and boundaries.
 - **Accepted Tradeoffs:** Explicit trade-offs and constraints accepted.
 - **Next Action:** The immediate file, command, or implementation slice to execute.

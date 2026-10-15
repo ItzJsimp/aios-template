@@ -3,6 +3,7 @@ name: domain-modeling
 description: "Refine codebase domain models, synchronize terminology into CONTEXT.md, and record architectural ADRs."
 category: code
 scope: structural
+source: "https://github.com/mattpocock/skills (skills/engineering/domain-modeling, MIT, adapted for the AIOS)"
 distribution: core
 disable-model-invocation: true
 ---

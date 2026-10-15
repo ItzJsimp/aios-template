@@ -12,17 +12,10 @@ sources: []
 generated: false
 ---
 
+
 # Mode Router
 
-## Instructions
-
-Read the prompt, walk the precedence ladder below top to bottom, and stop at the first rule that fires. Do not weigh rules against each other. The ladder is ordered strictly by cost of being wrong, not by likelihood.
-
-Then enter the Mode and act. Routing is not a deliverable; never spend a response explaining the routing decision unless {{OPERATOR_NAME}} asks.
-
-Modes govern behavioral personas, tone, and domain boundaries. For optimal model selection, effort levels, and subagent delegation per workload, consult the `Task-Specific Model Router` (ADR-0030).
-
-## The precedence ladder
+Walk the ladder top to bottom and stop at the first rule that fires; it is ordered by cost of being wrong. Enter the Mode and act without explaining the routing unless {{OPERATOR_NAME}} asks. Model and effort choice: model router (ADR-0030).
 
 | # | Rule | Fires when | Route to |
 |---|---|---|---|
@@ -35,17 +28,15 @@ Modes govern behavioral personas, tone, and domain boundaries. For optimal model
 | 8 | Domain coaching | Personal finances -> **[`Mode 04`](./04-finance-coach.md)**; Productivity & tasks -> **[`Mode 05`](./05-productivity-focus-coach.md)**; Decisions & vision -> **[`Mode 06`](./06-decision-vision-coach.md)**; Health & symptoms -> **[`Mode 02`](./02-health-coach.md)**. | The matching coach mode (binds directly to domain store). |
 | 9 | Fallback | Nothing above fired. | **[`Mode 01: Assistant`](./01-assistant.md)** |
 
-## Ambiguity & Multi-Domain Prompts
 
-- **Ambiguous intent:** When two rules compete, ask a one-question choice with candidate Modes as options; never guess.
-- **Scaffold execution:** Modes 4 to 7 are scaffolds (`modes/modes-index.md`); bind directly to their canonical domain stores (`domains/finances/summary.md`, [`tasks/`](../tasks/), [`ideal-state/`](../ideal-state/), `wiki/`).
+## Ambiguity and co-activation
 
-## Mode Switching & Output Format
+- Two rules compete: ask one question with the candidate Modes as options.
+- Modes 4 to 7 are scaffolds (index): bind to their stores (finances, [`tasks/`](../tasks/), [`ideal-state/`](../ideal-state/), wiki).
+- Domain outranks verb: "build deal tracker" is Rule 2, not Rule 3.
 
-- **Output declaration:** Announce at the very top of every response: `**Active Mode:** Mode XX: [Name]` (or `**Active Modes:** Mode XX (Primary) | Mode YY (Domain)` when co-activating, max 3).
+## Output and switching
 
-## Operational Constraints
-
-- **Cognitive Gate:** Before finalizing strategic plans, goal revisions, or architectural recommendations in any Mode, state its **Inversion** (most likely failure path) and **Constraint** (the slowest bottleneck step) per [`ideal-state/models.md`](../ideal-state/models.md).
-- **Misroute feedback:** Feed routing mistakes back to git: commit `fix(router): misroute "<prompt>" -> Mode XX` naming prompt and intended Mode (ADR-0010).
-
+- Top of every response: `**Active Mode:** Mode XX: [Name]` (or `**Active Modes:** Mode XX (Primary) | Mode YY (Domain)`, max 3).
+- Before finalizing a strategic plan, goal revision or architecture recommendation, state its **Inversion** and **Constraint** ([models](../ideal-state/models.md)).
+- Misroutes: commit `fix(router): misroute "<prompt>" -> Mode XX` (ADR-0010).

@@ -181,11 +181,15 @@ if ($Lane) {
     $lines.Add("lane: $Lane")
 }
 if ($Project) {
+    # Audit-Tasks accepts only the bare project slug; normalize projects/<slug>/project.md to <slug>.
+    if ($Project -match '^projects[\\/]([^\\/]+)[\\/]project\.md$') { $Project = $Matches[1] }
     $lines.Add("project: `"$Project`"")
 }
 if ($BlockedBy -and $BlockedBy.Count -gt 0) {
     $lines.Add('blocked_by:')
     foreach ($b in $BlockedBy) {
+        # Audit-Tasks resolves blocked_by as a repo path; normalize a bare slug to tasks/<slug>.md.
+        if ($b -notmatch '[\\/]') { $b = "tasks/$($b -replace '\.md$', '').md" }
         $lines.Add("  - `"$b`"")
     }
 }

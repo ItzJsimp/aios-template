@@ -42,9 +42,16 @@ Provider/account availability comes from the running app, not this template.
 14. **In-flight task capture:** any action item not executed this turn becomes a card in `tasks/` (via [`scripts/New-Task.ps1`](./scripts/New-Task.ps1)) with title, scope and testable `## Done when` gates, before responding. Keep card status current in the same turn the work changes.
 15. **Prompt authoring:** when writing prompts or instructions for agents, load [`.agents/skills/prompt-composer/SKILL.md`](./.agents/skills/prompt-composer/SKILL.md).
 
+16. **Performance gate:** every code change passes `.agents/skills/performance-gate/SKILL.md` before commit or "done": audit memory, speed, component efficiency, bloat and quality, with a before/after number for any performance claim.
+17. **ASD-STE100 language:** write every reply, plan, handoff, task card and commit message in ASD-STE100 Simplified Technical English. Sentences: one idea, 20 words or fewer in instructions, 25 or fewer in descriptions. Words: short, common, one meaning each, same word for the same thing. Grammar: active voice, simple tenses, keep articles, no idioms or phrasal verbs. Steps: imperative, one action each, condition first. Code, commands, paths and identifiers stay as written.
+
 ## Built-in next action
 
 For "next action", "what should I work on", or `/next-action`, use [next-action](./.agents/skills/next-action/SKILL.md). It remembers this workspace's task folder and offers an optional energy check; "skip" lets it choose. New projects include it automatically. After pulling template updates, run [Sync-DefaultSkills.ps1](./scripts/Sync-DefaultSkills.ps1) to update existing projects.
+
+## Meetings
+
+For questions about a recorded call or meeting, use the `meetings` MCP tools first ([`tools/meetings/mcp_server.py`](./tools/meetings/mcp_server.py), registered in [`.mcp.json`](./.mcp.json)). The meeting folder is private.
 
 ## Load these when the task calls for them
 

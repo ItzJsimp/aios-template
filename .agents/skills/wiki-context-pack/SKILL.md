@@ -12,6 +12,7 @@ load: on-demand
 owner: shared
 verified: 2026-09-26
 source: "https://github.com/ar9av/obsidian-wiki (.skills/wiki-context-pack, MIT, commit 2f10142)"
+disable-model-invocation: true
 ---
 
 ## AIOS binding (overrides the config and vault steps below)

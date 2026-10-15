@@ -27,7 +27,7 @@ def canonical_store(folder, workspace):
 
 
 def detect_project_context(workspace, store_root=None):
-    """Detect the active project name (e.g. 'leonidas-code') even in standalone checkouts."""
+    """Detect the active project name (e.g. 'aios-code') even in standalone checkouts."""
     workspace = Path(workspace).resolve()
     # 1. Standard AIOS projects/<slug> layout
     if store_root:
@@ -44,19 +44,19 @@ def detect_project_context(workspace, store_root=None):
         except Exception:
             pass
 
-    # 2. Check for leonidas-code indicators
+    # 2. Check for aios-code indicators
     for p in (workspace, *workspace.parents):
-        if p.name.lower() in ("leonidas-code", "leonidas_code", "t3-code", "t3code"):
-            return "leonidas-code"
-        if (p / "leonidas-release.json").is_file():
-            return "leonidas-code"
+        if p.name.lower() in ("aios-code", "aios_code", "t3-code", "t3code"):
+            return "aios-code"
+        if (p / "aios-release.json").is_file():
+            return "aios-code"
         pkg = p / "package.json"
         if pkg.is_file():
             try:
                 data = json.loads(pkg.read_text(encoding="utf-8"))
                 name = data.get("name", "")
-                if "leonidas-code" in name or "@t3tools" in name:
-                    return "leonidas-code"
+                if "aios-code" in name or "@t3tools" in name:
+                    return "aios-code"
             except Exception:
                 pass
         proj_md = p / "project.md"
@@ -78,10 +78,13 @@ def detect_project_context(workspace, store_root=None):
     return None
 
 
+SHARED_LANES = {"", "agent", "aios", "draft", "grill", "shared"}
+
+
 def detect_user(explicit_user=None):
     """Explicit canon identity wins; account names are only fallback hints."""
     value = (explicit_user or os.environ.get("USERNAME") or os.environ.get("USER") or "user").lower().strip()
-    aliases = {"jacob": "jake", "itzjsimp": "jake", "seth": "mob", "seth moncada": "mob"}
+    aliases = {"operator": "operator", "operator": "operator"}
     return aliases.get(value, value)
 
 
@@ -189,7 +192,7 @@ def find_task_files(folder, workspace, project_filter=None):
             proj = c["project"].lower().replace("projects/", "").strip()
             fname = c["filename"].lower()
             local_store = folder.parent in (workspace, *workspace.parents) and not (folder.parent / "projects").is_dir()
-            if proj == p_clean or (not proj and (local_store or p_clean in fname or (p_clean == "leonidas-code" and "t3-code" in fname))):
+            if proj == p_clean or (not proj and (local_store or p_clean in fname or (p_clean == "aios-code" and "t3-code" in fname))):
                 filtered.append(c)
         return filtered
 
@@ -212,25 +215,13 @@ def score_task(task, user="user", energy="all", focus="all"):
     owner = task["owner"].lower()
     text = (task["name"] + " " + task["why"]).lower()
 
-    if lane in {"jake", "mob"} and lane != user:
+    # Another person's personal lane is never recommended; shared lanes are open to everyone.
+    if lane not in SHARED_LANES and lane != user:
         return -9999
     if lane == user or owner == user:
         score += 60
-
-    if user == "mob":
-        if lane == "jake":
-            return -9999
-        if lane == "mob" or owner == "mob":
-            score += 60
-        if lane in ["leonidas", "agent", "draft"]:
-            score += 15
-    elif user == "jake":
-        if lane == "mob" or owner == "mob":
-            return -9999
-        if lane == "jake" or owner == "leonidas":
-            score += 50
-        if lane in ["grill", "leonidas"]:
-            score += 25
+    if lane in ("aios", "agent", "draft", "grill"):
+        score += 15
 
     prio = task["priority"].lower()
     if "critical" in prio or "urgent" in prio:
@@ -286,7 +277,7 @@ def assign_execution_route(task):
     is_auto = task["autonomous"]
     title = task["name"].lower()
 
-    if is_auto and task.get("start_here") and task.get("done_when") and task.get("lane", "").lower() not in {"jake", "mob", "grill"}:
+    if is_auto and task.get("start_here") and task.get("done_when") and task.get("lane", "").lower() in SHARED_LANES - {"grill"}:
         return {
             "route": "subagent",
             "badge": "🟣 Subagent-Ready",
@@ -447,7 +438,7 @@ def main():
     parser.add_argument("--rank", action="store_true", help="Rank and route top candidate tasks")
     parser.add_argument("--energy", default="all", choices=["all", "low", "medium", "high"])
     parser.add_argument("--focus", default="all", choices=["all", "code", "arch", "review"])
-    parser.add_argument("--user", help="Explicit user (e.g. mob, jake)")
+    parser.add_argument("--user", help="Explicit user (your name)")
     parser.add_argument("--project", help="Explicit project name")
     parser.add_argument("--draft-prompt", type=int, help="Output prompt composer draft for task 1-5")
     args = parser.parse_args()
@@ -471,7 +462,7 @@ def main():
         tasks = result["tasks"]
         if 0 <= idx < len(tasks):
             task = tasks[idx]
-            proj_name = result.get("detected_project") or result.get("project") or "leonidas-code"
+            proj_name = result.get("detected_project") or result.get("project") or "aios-code"
             prompt = draft_prompt_composer(task, proj_name)
             print(prompt)
             return 0

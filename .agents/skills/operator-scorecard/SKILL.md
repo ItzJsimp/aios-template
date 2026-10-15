@@ -10,6 +10,7 @@ title: "Operator Scorecard: weekly self-improvement check"
 kind: procedure
 load: on-demand
 owner: shared
+disable-model-invocation: true
 ---
 
 # Operator Scorecard

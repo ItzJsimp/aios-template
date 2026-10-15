@@ -12,6 +12,7 @@ load: "on-demand"
 owner: "shared"
 verified: "2026-10-04"
 source: "https://github.com/coreyhaines31/marketingskills (skills/seo-audit)" 
+disable-model-invocation: true
 ---
 # SEO Audit
 

@@ -3,6 +3,7 @@ name: teach
 description: "Interactive Socratic teaching framework to explain new concepts, tools, or skills step-by-step."
 category: research
 scope: structural
+source: "https://github.com/mattpocock/skills (skills/productivity/teach, MIT, adapted for the AIOS)"
 distribution: core
 type: skill
 id: skill-teach
